@@ -304,15 +304,16 @@ async function fetchData() {
       console.warn('getPublicConfig failed:', cfgErr);
     }
 
-    const results = await Promise.all([
+    const results = await Promise.allSettled([
       callBackend('getNavData'),
       callBackend('getThaiStockData'),
       callBackend('getGoldData')
     ]);
 
-    processData(results[0]);
-    processThaiStockData(results[1]);
-    processGoldData(results[2]);
+    if (results[0].status === 'fulfilled') processData(results[0].value);
+    else { processData(null); throw results[0].reason; }
+    if (results[1].status === 'fulfilled') processThaiStockData(results[1].value);
+    if (results[2].status === 'fulfilled') processGoldData(results[2].value);
     await loadPersonalWebullPortfolio(false);
   } catch (err) {
     console.error('Fetch Error:', err);
