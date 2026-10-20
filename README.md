@@ -39,3 +39,9 @@ Source retrieved and redesigned: 2026-10-20.
 Validation: สูตรทดสอบ deterministic drawdown/recovery/missing NAV/date/volatility ผ่าน; ทดสอบ component ด้วย NAV จริงและหน่วยสมมติใน browser, เปลี่ยนช่วง, privacy, empty state, logout และหน้าจอ 390px ผ่าน ยังไม่ได้ยืนยัน authentication/backend deployment หรือผลพอร์ตส่วนบุคคลหลัง login จริง
 
 Formula reference: https://help.portfolio-performance.info/en/reference/view/reports/performance/
+
+## Webull balance validation
+
+`webull-view.js` separates missing/partial balances from verified zeros. A legacy response with all-zero totals and no holdings is unverified, so it displays an em dash instead of asserting an empty account. The v2 backend declares `schemaVersion: webull-v2` with per-account `balanceStatus` and `positionsStatus`. Totals require every same-currency account to have valid values. Other currencies are never added without FX conversion. Unknown last prices are not replaced with cost basis.
+
+The Apps Script correction is deployed separately from GitHub Pages. It uses Webull Trading OpenAPI GET endpoints and documented HMAC-SHA1/x-* headers, validates HTTP/business errors and response schemas, and retains credentials only in Script Properties. Deploying frontend changes alone cannot repair the upstream connection. Live backend authorization/deployment must be verified separately.
