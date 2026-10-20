@@ -70,7 +70,7 @@
     let cost=0;
     stocks.forEach(r=>{if(num(r[7])>0&&num(r[8])>0&&num(r[9])!==null){const key='Folio:'+r[0];cost+=num(r[7])*num(r[8])+num(r[9]);positions.push({key,broker:'Folio',symbol:r[2],currency:r[4],quantity:num(r[7]),value:null,price:null,date:r[6],role:plan.roles[key]||'swing',note:'ยืนยันต้นทุนซื้อ แต่ยังไม่ยืนยันยอดถือปัจจุบัน'});}});
     accounts.push({name:'Folio',value:null,cash:null,date:stocks.map(r=>r[6]).sort().at(-1)||'—',note:stocks.length?'ต้นทุนซื้อ '+money(cost)+'; ต้องตรวจยอดถือ / เงินสดปัจจุบัน':'ยังไม่มีข้อมูลรายการซื้อ'});
-    return {accounts,positions,folio};
+    return {accounts,positions,folio,challenge:data?.challenge};
   }
   function render(){
     if(!isMithongSession())return;
