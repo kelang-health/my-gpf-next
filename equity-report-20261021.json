@@ -1,0 +1,2084 @@
+{
+  "analysisDate": "2026-10-21",
+  "cutoff": "2026-10-21T06:02:00+07:00",
+  "timezone": "Asia/Bangkok",
+  "horizon": "3–12 เดือน (A: ค่าเริ่มต้น ยังไม่ใช่กรอบที่ผู้ใช้ยืนยัน)",
+  "universe": "A: universe เริ่มต้น 10 ไทย + 10 สหรัฐ จากธุรกิจหลายกลุ่มและรายชื่อเกี่ยวข้องกับพอร์ต ไม่ใช่สแกนหุ้นทั้งหมดในสองตลาด",
+  "autoRefresh": false,
+  "cards": [
+    {
+      "ticker": "CPALL",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 43.75,
+      "price": 43.75,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/CPALL.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 43.75
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/CPALL/factsheet",
+          "asOf": "2026-10-20",
+          "value": 43.75
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 12.79,
+      "pb": 2.76,
+      "marketCapMillionTHB": 393010.68,
+      "fundamental": "กำไรสุทธิ 6M26 16,629.74 ล้านบาท; ต้องอ่านคุณภาพกำไรและ CFO เพิ่ม",
+      "fundamentalAsOf": "2026-06-30",
+      "fundamentalSource": "https://www.set.or.th/en/market/product/stock/quote/CPALL/financial-statement/company-highlights",
+      "catalyst": "ยอดขายสาขาเดิม / มาร์จิน / ต้นทุนดอกเบี้ย",
+      "risk": "CFO หรือกำไรปกติอ่อนลง; หนี้ไม่ลดตามแผน",
+      "theme": "บริโภคไทย",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 43.75,
+        "ma20": 43.375,
+        "ma50": 45.205,
+        "ma200": 45.9175,
+        "ma200_previous20": 45.9525,
+        "rsi14": 48.04595394012469,
+        "macd": -0.5365383200696101,
+        "macdSignal": -0.7300719725842342,
+        "volume": 35462300,
+        "volume20": 39885070.0,
+        "weeklyClose": 43.75,
+        "weeklyMA30": 45.86666666666667,
+        "higherHigh": false,
+        "higherLow": false,
+        "stage": "4 (rule-based I)",
+        "support20": 41.5,
+        "resistance55": 50.0,
+        "return63": -0.06417112299465244,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/CPALL.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          43.75,
+          44.0
+        ],
+        "stop": 41.0,
+        "target1": 50.0,
+        "target2": 52.25,
+        "rrCurrent": 2.27,
+        "rrEntry": 2.0,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 2,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "BDMS",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 19.2,
+      "price": 19.2,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/BDMS.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 19.2
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/BDMS/factsheet",
+          "asOf": "2026-10-20",
+          "value": 19.2
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 19.92,
+      "pb": 2.96,
+      "marketCapMillionTHB": 305126.44,
+      "fundamental": "2Q26 รายได้ดำเนินงาน 27,514 ล้านบาท เทียบ 27,134; กำไรสุทธิ 3,248 เทียบ 3,490 ล้านบาท",
+      "fundamentalAsOf": "2026-06-30",
+      "fundamentalSource": "https://investor.bdms.co.th/en/financial-info/financial-highlights",
+      "catalyst": "รายได้ผู้ป่วยและมาร์จินฟื้นในงบถัดไป",
+      "risk": "รายได้โตแต่กำไรยังลด; แรงกดดันค่าบุคลากร / payer mix",
+      "theme": "สุขภาพ/ผู้ป่วยต่างชาติ",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 19.200000762939453,
+        "ma20": 19.375000095367433,
+        "ma50": 19.672000045776368,
+        "ma200": 19.32449999809265,
+        "ma200_previous20": 19.304499988555907,
+        "rsi14": 45.84639797217423,
+        "macd": -0.20956946043609648,
+        "macdSignal": -0.2047612390951523,
+        "volume": 41789100,
+        "volume20": 56820015.0,
+        "weeklyClose": 19.200000762939453,
+        "weeklyMA30": 19.10333340962728,
+        "higherHigh": false,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 18.700000762939453,
+        "resistance55": 20.700000762939453,
+        "return63": -0.020408143405366563,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BDMS.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          19.1,
+          19.2
+        ],
+        "stop": 18.5,
+        "target1": 20.7,
+        "target2": 21.2,
+        "rrCurrent": 2.14,
+        "rrEntry": 2.14,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 3,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "ADVANC",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 332.0,
+      "price": 332.0,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADVANC.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 332.0
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/ADVANC/factsheet",
+          "asOf": "2026-10-20",
+          "value": 332
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 18.45,
+      "pb": 18.89,
+      "marketCapMillionTHB": 987437.63,
+      "fundamental": "6M26 กำไรสุทธิ 27,211.51 ล้านบาท; CFO 52,399.15 ล้านบาท; D/E 6.67 เท่า",
+      "fundamentalAsOf": "2026-06-30",
+      "fundamentalSource": "https://lssmedia.setlink.set.or.th/2026/6M/ADVANC-6M69-ListedCompanySnapshot-TH.html",
+      "catalyst": "รายได้บริการและ EBITDA; ประสิทธิภาพต้นทุน",
+      "risk": "กำไรโตแต่ CFO ลดจาก 55,978.04 ล้านบาท; หนี้สินเพิ่มและส่วนทุนลด ต้องตรวจเหตุผลและ lease/spectrum",
+      "theme": "โทรคมนาคมไทย",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 332.0,
+        "ma20": 341.05,
+        "ma50": 350.98,
+        "ma200": 358.04,
+        "ma200_previous20": 354.89,
+        "rsi14": 33.2299421974829,
+        "macd": -5.321412470072005,
+        "macdSignal": -4.8921794213034975,
+        "volume": 5826700,
+        "volume20": 5795400.0,
+        "weeklyClose": 332.0,
+        "weeklyMA30": 356.76666666666665,
+        "higherHigh": false,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 330.0,
+        "resistance55": 382.0,
+        "return63": -0.1146666666666667,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/ADVANC.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          344,
+          345
+        ],
+        "stop": 327,
+        "target1": 382,
+        "target2": 396,
+        "rrCurrent": 10.0,
+        "rrEntry": 2.06,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 0,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "KBANK",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 234.0,
+      "price": 234.0,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/KBANK.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 234.0
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/KBANK/factsheet",
+          "asOf": "2026-10-20",
+          "value": 234
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 10.74,
+      "pb": 0.95,
+      "marketCapMillionTHB": 554422.66,
+      "fundamental": "6M26 NIM 2.91%; NPL 3.18%; coverage 173.90%; credit cost 1.58%",
+      "fundamentalAsOf": "2026-06-30",
+      "fundamentalSource": "https://www.kasikornbank.com/en/News/Pages/q2_2026.aspx",
+      "catalyst": "งบ 3Q26 และทิศทาง NIM / credit cost ภายใต้ดอกเบี้ยไทย",
+      "risk": "NPL หรือ credit cost เพิ่ม; NIM ต่ำต่อเนื่อง; ROE ล่าสุดที่เทียบได้ไม่พบ",
+      "theme": "สินเชื่อ/ดอกเบี้ยไทย",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 234.0,
+        "ma20": 240.05,
+        "ma50": 245.74,
+        "ma200": 212.845,
+        "ma200_previous20": 207.8625,
+        "rsi14": 41.711245010683335,
+        "macd": -3.9205969393800046,
+        "macdSignal": -3.734419299077275,
+        "volume": 8836200,
+        "volume20": 15995785.0,
+        "weeklyClose": 234.0,
+        "weeklyMA30": 222.86666666666667,
+        "higherHigh": true,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 226.0,
+        "resistance55": 261.0,
+        "return63": -0.004255319148936176,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/KBANK.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          234,
+          235
+        ],
+        "stop": 223,
+        "target1": 261,
+        "target2": 270,
+        "rrCurrent": 2.45,
+        "rrEntry": 2.17,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 7,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "WHA",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 4.82,
+      "price": 4.82,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/WHA.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 4.82
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/WHA/factsheet",
+          "asOf": "2026-10-20",
+          "value": 4.82
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 16.96,
+      "pb": 1.92,
+      "marketCapMillionTHB": 72043.74,
+      "fundamental": "ธุรกิจนิคม โลจิสติกส์ สาธารณูปโภค และดิจิทัล; backlog และ CFO ล่าสุดที่ยืนยันได้ไม่พบ",
+      "fundamentalAsOf": "2026-10-20",
+      "fundamentalSource": "https://www.set.or.th/en/market/product/stock/quote/WHA/factsheet",
+      "catalyst": "ยอดโอนจริงและกระแสเงินสดจากยอดขายที่ดิน",
+      "risk": "backlog ไม่เปลี่ยนเป็นยอดโอน; หนี้หรือลูกหนี้เพิ่มเร็วกว่ากระแสเงินสด",
+      "theme": "FDI/ลงทุนไทย",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 4.820000171661377,
+        "ma20": 4.811000037193298,
+        "ma50": 4.809600048065185,
+        "ma200": 4.473550008535385,
+        "ma200_previous20": 4.314850007295608,
+        "rsi14": 49.18005177425723,
+        "macd": 0.034014838806489145,
+        "macdSignal": 0.018230833916877697,
+        "volume": 92717700,
+        "volume20": 130306295.0,
+        "weeklyClose": 4.820000171661377,
+        "weeklyMA30": 4.836000029246012,
+        "higherHigh": true,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 4.559999942779541,
+        "resistance55": 5.099999904632568,
+        "return63": -0.10740739138201627,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/WHA.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          4.66,
+          4.68
+        ],
+        "stop": 4.5,
+        "target1": 5.05,
+        "target2": 5.15,
+        "rrCurrent": 0.72,
+        "rrEntry": 2.06,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 9,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "TTB",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 2.72,
+      "price": 2.72,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/TTB.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 2.72
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/TTB/factsheet",
+          "asOf": "2026-10-20",
+          "value": 2.72
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 11.22,
+      "pb": 1.02,
+      "marketCapMillionTHB": 265394.05,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.set.or.th/en/market/product/stock/quote/TTB/factsheet",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "สินเชื่อ/ดอกเบี้ยไทย",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 2.7200000286102295,
+        "ma20": 2.9640000104904174,
+        "ma50": 2.9712000131607055,
+        "ma200": 2.4757499957084654,
+        "ma200_previous20": 2.37564999461174,
+        "rsi14": 29.537672475154224,
+        "macd": -0.04079806887773696,
+        "macdSignal": -0.02037943437966521,
+        "volume": 1177936200,
+        "volume20": 408069790.0,
+        "weeklyClose": 2.7200000286102295,
+        "weeklyMA30": 2.655333336194356,
+        "higherHigh": false,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 2.819999933242798,
+        "resistance55": 3.180000066757202,
+        "return63": 0.0,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TTB.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          2.88,
+          2.9
+        ],
+        "stop": 2.78,
+        "target1": 3.18,
+        "target2": 3.26,
+        "rrCurrent": null,
+        "rrEntry": 2.33,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 7,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "AWC",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 3.0,
+      "price": 3.0,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/AWC.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 3.0
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/AWC/factsheet",
+          "asOf": "2026-10-19",
+          "value": 3.04
+        }
+      ],
+      "twoSourcePrice": false,
+      "conflict": "SET Factsheet 2026-10-19: 3.04; Yahoo 2026-10-20: 3.00; คนละวัน จึงยังไม่ยืนยันราคาปัจจุบันจากสองแหล่ง",
+      "pe": 15.05,
+      "pb": 1.01,
+      "marketCapMillionTHB": 97360.69,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.set.or.th/en/market/product/stock/quote/AWC/factsheet",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "ท่องเที่ยว/อสังหาฯ/ดอกเบี้ย",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 3.0,
+        "ma20": 3.1049999713897707,
+        "ma50": 3.0535999822616575,
+        "ma200": 2.513949986100197,
+        "ma200_previous20": 2.4032999861240385,
+        "rsi14": 43.53237575125779,
+        "macd": -0.0024955990131365624,
+        "macdSignal": 0.01541961634401978,
+        "volume": 102124800,
+        "volume20": 83324055.0,
+        "weeklyClose": 3.0,
+        "weeklyMA30": 2.669333338737488,
+        "higherHigh": true,
+        "higherLow": true,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 2.9800000190734863,
+        "resistance55": 3.3399999141693115,
+        "return63": 0.07142858967489163,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AWC.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": null,
+        "stop": null,
+        "target1": null,
+        "target2": null,
+        "rrCurrent": null,
+        "rrEntry": null,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 10,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "IRPC",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 2.78,
+      "price": 2.78,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/IRPC.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 2.78
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/IRPC/factsheet",
+          "asOf": "2026-10-19",
+          "value": 2.84
+        }
+      ],
+      "twoSourcePrice": false,
+      "conflict": "SET Factsheet 2026-10-19: 2.84; Yahoo 2026-10-20: 2.78; คนละวัน จึงยังไม่ยืนยันราคาปัจจุบันจากสองแหล่ง",
+      "pe": 5.49,
+      "pb": 0.76,
+      "marketCapMillionTHB": 58033.75,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.set.or.th/en/market/product/stock/quote/IRPC/factsheet",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "โรงกลั่น/ปิโตรเคมี",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 2.7799999713897705,
+        "ma20": 2.9419999957084655,
+        "ma50": 2.772800006866455,
+        "ma200": 1.9068000024557115,
+        "ma200_previous20": 1.713000002205372,
+        "rsi14": 44.68046728458413,
+        "macd": 0.019407177284274546,
+        "macdSignal": 0.05327648176294387,
+        "volume": 88900600,
+        "volume20": 152093990.0,
+        "weeklyClose": 2.7799999713897705,
+        "weeklyMA30": 2.225666677951813,
+        "higherHigh": false,
+        "higherLow": true,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 2.700000047683716,
+        "resistance55": 3.2200000286102295,
+        "return63": 0.38999998569488525,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/IRPC.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": null,
+        "stop": null,
+        "target1": null,
+        "target2": null,
+        "rrCurrent": null,
+        "rrEntry": null,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 10,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "PTTEP",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 159.5,
+      "price": 159.5,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/PTTEP.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 159.5
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/PTTEP/factsheet",
+          "asOf": "2026-10-20",
+          "value": 159.5
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 9.15,
+      "pb": 1.12,
+      "marketCapMillionTHB": 633212.67,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.set.or.th/en/market/product/stock/quote/PTTEP/factsheet",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "น้ำมัน/ก๊าซ",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 159.5,
+        "ma20": 149.25,
+        "ma50": 149.79,
+        "ma200": 141.215,
+        "ma200_previous20": 136.98,
+        "rsi14": 69.92325276924838,
+        "macd": 1.6658845816059227,
+        "macdSignal": 0.2845187878362098,
+        "volume": 27158600,
+        "volume20": 14872260.0,
+        "weeklyClose": 159.5,
+        "weeklyMA30": 147.18333333333334,
+        "higherHigh": true,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 143.0,
+        "resistance55": 157.5,
+        "return63": 0.11149825783972123,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PTTEP.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          146.0,
+          146.5
+        ],
+        "stop": 141.5,
+        "target1": 157.5,
+        "target2": 161.0,
+        "rrCurrent": -0.11,
+        "rrEntry": 2.2,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 12,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "AOT",
+      "market": "TH",
+      "currency": "THB",
+      "regularPrice": 57.25,
+      "price": 57.25,
+      "priceAsOf": "2026-10-20",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/AOT.BK?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 57.25
+        },
+        {
+          "name": "SET Factsheet",
+          "url": "https://www.set.or.th/en/market/product/stock/quote/AOT/factsheet",
+          "asOf": "2026-10-20",
+          "value": 57.25
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "",
+      "pe": 43.79,
+      "pb": 6.1,
+      "marketCapMillionTHB": 817856.33,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.set.or.th/en/market/product/stock/quote/AOT/factsheet",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "ท่องเที่ยว/นโยบายสนามบิน",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 57.25,
+        "ma20": 59.85,
+        "ma50": 62.11,
+        "ma200": 57.06375,
+        "ma200_previous20": 55.92875,
+        "rsi14": 34.737719480841534,
+        "macd": -1.282024904509484,
+        "macdSignal": -1.1381653296044283,
+        "volume": 18007500,
+        "volume20": 25192725.0,
+        "weeklyClose": 57.25,
+        "weeklyMA30": 59.233333333333334,
+        "higherHigh": false,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 57.0,
+        "resistance55": 67.25,
+        "return63": -0.1089494163424124,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AOT.BK?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          59.5,
+          59.75
+        ],
+        "stop": 56.25,
+        "target1": 67.25,
+        "target2": 70.0,
+        "rrCurrent": 10.0,
+        "rrEntry": 2.14,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 4,
+        "MomentumRS/10": null,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 531.87,
+      "price": 529.0,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/MSFT?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 531.87
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/MSFT/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 529.0
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/MSFT?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:00:31+00:00",
+          "value": 529.0
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "ราคาปิด 531.870 USD ต่างจาก after-hours 529.0000 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "FY26 Q4 รายได้ 90.0 พันล้าน USD โต 18%; operating income 40.6 พันล้าน USD; EPS ได้ประโยชน์รายการเฉพาะ 0.27 USD",
+      "fundamentalAsOf": "2026-07-29",
+      "fundamentalSource": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+      "catalyst": "งบ 28 ต.ค. 2026 สหรัฐ; Azure และการเปลี่ยน Capex เป็น cash flow",
+      "risk": "รายได้ AI โตไม่ทัน Capex; มาร์จินลดต่อเนื่อง; ห้ามใช้ EPS มีรายการพิเศษโดยไม่ปรับ",
+      "theme": "AI Capex",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 531.8699951171875,
+        "ma20": 523.5095016479493,
+        "ma50": 506.7192004394531,
+        "ma200": 435.7961492919922,
+        "ma200_previous20": 431.76254928588867,
+        "rsi14": 58.34264875143733,
+        "macd": 10.10718133012574,
+        "macdSignal": 10.733991545576103,
+        "volume": 14432432,
+        "volume20": 21459486.6,
+        "weeklyClose": 531.8699951171875,
+        "weeklyMA30": 446.6200012207031,
+        "higherHigh": true,
+        "higherLow": true,
+        "stage": "2 (rule-based I)",
+        "support20": 491.2200012207031,
+        "resistance55": 551.1500244140625,
+        "return63": 0.3625813396195865,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MSFT?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          505.73,
+          507.43
+        ],
+        "stop": 485.57,
+        "target1": 551.15,
+        "target2": 567.45,
+        "rrCurrent": 0.51,
+        "rrEntry": 2.0,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 15,
+        "MomentumRS/10": 7,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 340.275,
+      "price": 340.9001,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 340.275
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/GOOGL/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 340.9001
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:01:12+00:00",
+          "value": 340.9001
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "ราคาปิด 340.275 USD ต่างจาก after-hours 340.9001 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "2Q26 รายได้ 119.796 พันล้าน USD โต 24%; operating margin 34%; CFO 39.1 เทียบ Capex 44.9 พันล้าน USD",
+      "fundamentalAsOf": "2026-06-30",
+      "fundamentalSource": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "catalyst": "Cloud และ TPU monetization; ผลตอบแทนจากการลงทุนโครงสร้างพื้นฐาน",
+      "risk": "กำไร GAAP มี unrealized investment gains จำนวนมาก; CFO น้อยกว่า Capex ในไตรมาส; มีการเพิ่มทุน / หนี้และความเสี่ยง dilution",
+      "theme": "AI Capex",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 340.2749938964844,
+        "ma20": 345.3302490234375,
+        "ma50": 344.03309936523436,
+        "ma200": 341.1821743774414,
+        "ma200_previous20": 337.8493493652344,
+        "rsi14": 44.65953506110974,
+        "macd": 0.11275999533290815,
+        "macdSignal": 0.8792279730149779,
+        "volume": 17907615,
+        "volume20": 24003675.75,
+        "weeklyClose": 340.2749938964844,
+        "weeklyMA30": 351.9028310139974,
+        "higherHigh": false,
+        "higherLow": true,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 335.510009765625,
+        "resistance55": 384.4800109863281,
+        "return63": -0.005305628521254713,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          347.63,
+          348.94
+        ],
+        "stop": 331.17,
+        "target1": 384.48,
+        "target2": 397.79,
+        "rrCurrent": 4.48,
+        "rrEntry": 2.0,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 0,
+        "MomentumRS/10": 0,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "META",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 694.25,
+      "price": 697.8301,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/META?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 694.25
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/META/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 697.8301
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/META?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:01:14+00:00",
+          "value": 698.0
+        }
+      ],
+      "twoSourcePrice": false,
+      "conflict": "ราคาปิด 694.250 USD ต่างจาก after-hours 697.8301 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน; ฟีดล่าสุดไม่ตรงกันในเกณฑ์ ตรวจใหม่ก่อนใช้",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.nasdaq.com/market-activity/stocks/meta",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "AI Capex/โฆษณา",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 694.25,
+        "ma20": 731.8669982910156,
+        "ma50": 659.4935974121094,
+        "ma200": 632.4230471801758,
+        "ma200_previous20": 625.1142477416993,
+        "rsi14": 46.396890824914514,
+        "macd": 12.34094382765727,
+        "macdSignal": 21.32973073638484,
+        "volume": 16684869,
+        "volume20": 19582053.45,
+        "weeklyClose": 694.25,
+        "weeklyMA30": 627.4386698404948,
+        "higherHigh": true,
+        "higherLow": true,
+        "stage": "2 (rule-based I)",
+        "support20": 693.8599853515625,
+        "resistance55": 779.8200073242188,
+        "return63": 0.10695667668688968,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/META?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": null,
+        "stop": null,
+        "target1": null,
+        "target2": null,
+        "rrCurrent": null,
+        "rrEntry": null,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 13,
+        "MomentumRS/10": 5,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 216.47,
+      "price": 220.8618,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/NVDA?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 216.47
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/NVDA/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 220.8618
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/NVDA?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:01:15+00:00",
+          "value": 220.93
+        }
+      ],
+      "twoSourcePrice": false,
+      "conflict": "ราคาปิด 216.470 USD ต่างจาก after-hours 220.8618 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน; ฟีดล่าสุดไม่ตรงกันในเกณฑ์ ตรวจใหม่ก่อนใช้",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "2Q FY27 รายได้ 96.221 พันล้าน USD โต 106%; gross margin 75%; guidance รายได้ไตรมาสถัดไป 108 พันล้าน USD เป็นประมาณการบริษัท",
+      "fundamentalAsOf": "2026-08-26",
+      "fundamentalSource": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+      "catalyst": "ยอดส่งมอบ การเติบโต Data Center และ gross margin",
+      "risk": "ลูกค้า AI ลด Capex; ข้อจำกัดส่งออก; inventory / receivable หรือ customer financing เสี่ยงขึ้น",
+      "theme": "AI Capex",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 216.47000122070312,
+        "ma20": 227.04250106811523,
+        "ma50": 222.91760040283202,
+        "ma200": 203.26205001831056,
+        "ma200_previous20": 198.85415000915526,
+        "rsi14": 40.902963051030724,
+        "macd": -1.3149504369691272,
+        "macdSignal": 1.0062078504533534,
+        "volume": 77454645,
+        "volume20": 103411067.25,
+        "weeklyClose": 216.47000122070312,
+        "weeklyMA30": 211.4106679280599,
+        "higherHigh": true,
+        "higherLow": true,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 212.85000610351562,
+        "resistance55": 243.3699951171875,
+        "return63": 0.020796018640389047,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NVDA?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": null,
+        "stop": null,
+        "target1": null,
+        "target2": null,
+        "rrCurrent": null,
+        "rrEntry": null,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 10,
+        "MomentumRS/10": 0,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 262.63,
+      "price": 264.04,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMZN?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 262.63
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/AMZN/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 264.04
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMZN?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T22:59:38+00:00",
+          "value": 264.03
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "ราคาปิด 262.630 USD ต่างจาก after-hours 264.0400 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "2Q26 ยอดขายโต 20%; AWS โต 37%; TTM FCF ติดลบ 7.6 พันล้าน USD",
+      "fundamentalAsOf": "2026-07-30",
+      "fundamentalSource": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx?mode=light",
+      "catalyst": "AWS และกำไรจากธุรกิจหลัก; วินัย Capex",
+      "risk": "กำไรสุทธิมี non-operating pre-tax other income 53.4 พันล้าน USD ส่วนใหญ่จาก Anthropic; P/E ดูต่ำอาจหลอกตา",
+      "theme": "AI Capex",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 262.6300048828125,
+        "ma20": 253.80849990844726,
+        "ma50": 256.5261996459961,
+        "ma200": 243.06689987182617,
+        "ma200_previous20": 240.53389991760253,
+        "rsi14": 57.407999835224054,
+        "macd": 1.294502675460734,
+        "macdSignal": 0.42387185156020885,
+        "volume": 34498734,
+        "volume20": 36092426.7,
+        "weeklyClose": 262.6300048828125,
+        "weeklyMA30": 253.75900115966797,
+        "higherHigh": false,
+        "higherLow": true,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 244.72999572753906,
+        "resistance55": 287.20001220703125,
+        "return63": 0.07261588048227363,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AMZN?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          255.73,
+          256.71
+        ],
+        "stop": 241.47,
+        "target1": 287.2,
+        "target2": 298.75,
+        "rrCurrent": 1.03,
+        "rrEntry": 2.0,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 12,
+        "MomentumRS/10": 10,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 334.37,
+      "price": 338.51,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/AVGO?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 334.37
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/AVGO/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 338.51
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/AVGO?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:01:10+00:00",
+          "value": 338.68
+        }
+      ],
+      "twoSourcePrice": false,
+      "conflict": "ราคาปิด 334.370 USD ต่างจาก after-hours 338.5100 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน; ฟีดล่าสุดไม่ตรงกันในเกณฑ์ ตรวจใหม่ก่อนใช้",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "3Q FY26 รายได้ 29.6 พันล้าน USD โต 86%; CFO 14.2, Capex 0.5 และ FCF 13.7 พันล้าน USD",
+      "fundamentalAsOf": "2026-09-02",
+      "fundamentalSource": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-third-quarter-fiscal-year-2026-financial",
+      "catalyst": "AI semiconductor และ software backlog / cash conversion",
+      "risk": "ลูกค้ารายใหญ่กระจุกตัว; ต้องตรวจหนี้และดอกเบี้ย; valuation และ execution risk",
+      "theme": "AI Capex",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 334.3699951171875,
+        "ma20": 352.4820022583008,
+        "ma50": 362.10159973144533,
+        "ma200": 368.06320037841795,
+        "ma200_previous20": 368.92190017700193,
+        "rsi14": 38.62873170432378,
+        "macd": -6.522732004140607,
+        "macdSignal": -4.068688766680504,
+        "volume": 15742796,
+        "volume20": 21642049.8,
+        "weeklyClose": 334.3699951171875,
+        "weeklyMA30": 382.2500010172526,
+        "higherHigh": true,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 328.5799865722656,
+        "resistance55": 432.7300109863281,
+        "return63": -0.15735491249104994,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AVGO?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": null,
+        "stop": null,
+        "target1": null,
+        "target2": null,
+        "rrCurrent": null,
+        "rrEntry": null,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 0,
+        "MomentumRS/10": 0,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "MRVL",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 240.42,
+      "price": 246.79,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRVL?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 240.42
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/MRVL/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 246.79
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRVL?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:01:14+00:00",
+          "value": 246.79
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "ราคาปิด 240.420 USD ต่างจาก after-hours 246.7900 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.nasdaq.com/market-activity/stocks/mrvl",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "AI Capex",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 240.4199981689453,
+        "ma20": 261.0434989929199,
+        "ma50": 242.04659942626952,
+        "ma200": 177.37710006713868,
+        "ma200_previous20": 160.04835021972656,
+        "rsi14": 44.49585368609533,
+        "macd": -0.25927073448016813,
+        "macdSignal": 5.479515875614429,
+        "volume": 15957818,
+        "volume20": 19787430.9,
+        "weeklyClose": 240.4199981689453,
+        "weeklyMA30": 216.70166625976563,
+        "higherHigh": true,
+        "higherLow": true,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 226.52000427246094,
+        "resistance55": 301.2699890136719,
+        "return63": 0.13948524531762607,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MRVL?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          242.92,
+          245.56
+        ],
+        "stop": 217.72,
+        "target1": 301.26,
+        "target2": 321.58,
+        "rrCurrent": 1.87,
+        "rrEntry": 2.0,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 10,
+        "MomentumRS/10": 5,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "SOFI",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 14.68,
+      "price": 14.7497,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/SOFI?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 14.68
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/SOFI/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 14.7497
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/SOFI?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:00:22+00:00",
+          "value": 14.74
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "ราคาปิด 14.680 USD ต่างจาก after-hours 14.7497 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.nasdaq.com/market-activity/stocks/sofi",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "สินเชื่อ/ดอกเบี้ยสหรัฐ",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 14.680000305175781,
+        "ma20": 15.557999992370606,
+        "ma50": 16.94179988861084,
+        "ma200": 18.24637496471405,
+        "ma200_previous20": 19.393424973487853,
+        "rsi14": 37.98952911696242,
+        "macd": -0.6693755437008324,
+        "macdSignal": -0.6053155424953759,
+        "volume": 44875840,
+        "volume20": 46615157.0,
+        "weeklyClose": 14.680000305175781,
+        "weeklyMA30": 17.018666585286457,
+        "higherHigh": false,
+        "higherLow": false,
+        "stage": "4 (rule-based I)",
+        "support20": 13.859999656677246,
+        "resistance55": 19.4950008392334,
+        "return63": -0.14001168320894042,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SOFI?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          15.41,
+          15.51
+        ],
+        "stop": 13.53,
+        "target1": 19.49,
+        "target2": 21.02,
+        "rrCurrent": 3.89,
+        "rrEntry": 2.01,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 0,
+        "MomentumRS/10": 0,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "NBIS",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 171.45,
+      "price": 180.71,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/NBIS?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 171.45
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/NBIS/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 180.71
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/NBIS?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:01:09+00:00",
+          "value": 180.8
+        }
+      ],
+      "twoSourcePrice": false,
+      "conflict": "ราคาปิด 171.450 USD ต่างจาก after-hours 180.7100 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน; ฟีดล่าสุดไม่ตรงกันในเกณฑ์ ตรวจใหม่ก่อนใช้",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.nasdaq.com/market-activity/stocks/nbis",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "AI Capex/เงินทุน",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 171.4499969482422,
+        "ma20": 217.32475051879882,
+        "ma50": 222.19549987792968,
+        "ma200": 174.87992546081543,
+        "ma200_previous20": 162.07282535552977,
+        "rsi14": 33.671503936570076,
+        "macd": -13.419587516034397,
+        "macdSignal": -6.037887759838087,
+        "volume": 21380151,
+        "volume20": 19729227.55,
+        "weeklyClose": 171.4499969482422,
+        "weeklyMA30": 204.6773338317871,
+        "higherHigh": true,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 163.27000427246094,
+        "resistance55": 280.8299865722656,
+        "return63": -0.21410893807195108,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NBIS?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": null,
+        "stop": null,
+        "target1": null,
+        "target2": null,
+        "rrCurrent": null,
+        "rrEntry": null,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 0,
+        "MomentumRS/10": 0,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "market": "US",
+      "currency": "USD",
+      "regularPrice": 50.9,
+      "price": 52.3997,
+      "priceAsOf": "Oct 20, 2026 7:01 PM ET / เวลาไทย 21 ต.ค. 2026 ประมาณ 06:01",
+      "regularAsOf": "2026-10-20",
+      "sources": [
+        {
+          "name": "Yahoo daily OHLC",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/RKLB?range=2y&interval=1d",
+          "asOf": "2026-10-20",
+          "value": 50.9
+        },
+        {
+          "name": "Nasdaq regular / after-hours",
+          "url": "https://api.nasdaq.com/api/quote/RKLB/info?assetclass=stocks",
+          "asOf": "Oct 20, 2026 7:01 PM ET",
+          "value": 52.3997
+        },
+        {
+          "name": "Yahoo extended-hours",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/RKLB?range=1d&interval=1m&includePrePost=true",
+          "asOf": "2026-10-20T23:00:46+00:00",
+          "value": 52.3979
+        }
+      ],
+      "twoSourcePrice": true,
+      "conflict": "ราคาปิด 50.900 USD ต่างจาก after-hours 52.3997 USD เป็นคนละช่วงเวลา ไม่ใช่เลือกราคาปิดแทนราคาปัจจุบัน",
+      "pe": null,
+      "pb": null,
+      "marketCapMillionTHB": null,
+      "fundamental": "งบล่าสุดและคุณภาพกำไร: ไม่พบในการตรวจรอบนี้",
+      "fundamentalAsOf": null,
+      "fundamentalSource": "https://www.nasdaq.com/market-activity/stocks/rklb",
+      "catalyst": "รอตรวจงบและข่าวบริษัทจาก IR / SEC",
+      "risk": "ยังไม่สรุปว่าเป็นหุ้นไม่ดีเมื่อไม่มีงบยืนยัน",
+      "theme": "การส่งมอบ/เงินทุน",
+      "technical": {
+        "date": "2026-10-20",
+        "close": 50.900001525878906,
+        "ma20": 66.39449939727783,
+        "ma50": 68.01699981689453,
+        "ma200": 81.04045009613037,
+        "ma200_previous20": 80.75167516708375,
+        "rsi14": 26.214222078729975,
+        "macd": -4.337225111745383,
+        "macdSignal": -2.0684596281229046,
+        "volume": 16653261,
+        "volume20": 21853798.05,
+        "weeklyClose": 50.900001525878906,
+        "weeklyMA30": 82.68066647847493,
+        "higherHigh": true,
+        "higherLow": false,
+        "stage": "unconfirmed 1/3/transition",
+        "support20": 49.69300079345703,
+        "resistance55": 86.83000183105469,
+        "return63": -0.2702508741809476,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/RKLB?range=2y&interval=1d"
+      },
+      "setup": {
+        "entry": [
+          60.04,
+          60.67
+        ],
+        "stop": 47.59,
+        "target1": 86.83,
+        "target2": 96.93,
+        "rrCurrent": 7.16,
+        "rrEntry": 2.0,
+        "invalidation": "Daily ปิดต่ำกว่าจุด Stop ที่สมมติ / เหตุผลลงทุนผิด; ต้องยืนยันกราฟและงบก่อนใช้งาน",
+        "type": "A: candidate sizing scenario, NOT approved order"
+      },
+      "status": "🟡 รอจังหวะ / หลักฐานไม่ครบ",
+      "confidence": "กลางเฉพาะราคาและ OHLC; ต่ำสำหรับการตัดสินใจซื้อ",
+      "scores": {
+        "Fundamental/25": null,
+        "Growth/15": null,
+        "Valuation/15": null,
+        "Technical/15": 0,
+        "MomentumRS/10": 0,
+        "Catalyst/10": null,
+        "RiskBalanceSheet/10": null
+      },
+      "totalScore": null,
+      "fairValue": {
+        "bear": null,
+        "base": null,
+        "bull": null,
+        "reason": "ไม่พบ normalized FCF/EPS, discount rate และงบดุลที่ตรวจครบ จึงยังไม่อ้างเป็น Fair Value ตัวเลข; ไม่ใช้ broker target แทน"
+      },
+      "missing": [
+        "ROE/FCF/EV-EBITDA ที่นิยามและช่วงเวลาเทียบกันได้ครบ",
+        "interest coverage / maturity / dilution และ insider selling แบบผิดปกติ",
+        "Fair Value Bear/Base/Bull ที่มีสมมติฐานรองรับครบ"
+      ]
+    }
+  ],
+  "topTH": [
+    "CPALL",
+    "BDMS",
+    "ADVANC",
+    "KBANK",
+    "WHA"
+  ],
+  "topUS": [
+    "MSFT",
+    "GOOGL",
+    "NVDA",
+    "AMZN",
+    "AVGO"
+  ],
+  "macro": {
+    "SPY": {
+      "date": "2026-10-20",
+      "close": 769.0499877929688,
+      "ma20": 770.6164947509766,
+      "ma50": 768.2865954589844,
+      "ma200": 725.8667993164063,
+      "ma200_previous20": 717.1888497924805,
+      "rsi14": 49.6770947700497,
+      "macd": 0.9602081639420703,
+      "macdSignal": 1.979253782433905,
+      "volume": 34504254,
+      "volume20": 41367937.7,
+      "weeklyClose": 769.0499877929688,
+      "weeklyMA30": 745.854667154948,
+      "higherHigh": true,
+      "higherLow": true,
+      "stage": "2 (rule-based I)",
+      "support20": 758.7899780273438,
+      "resistance55": 781.6199951171875,
+      "return63": 0.02895333943350109,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?range=2y&interval=1d"
+    },
+    "QQQ": {
+      "date": "2026-10-20",
+      "close": 717.6300048828125,
+      "ma20": 739.8720031738281,
+      "ma50": 726.6152001953125,
+      "ma200": 675.9520498657226,
+      "ma200_previous20": 663.8162991333007,
+      "rsi14": 40.79309619213983,
+      "macd": -1.2729832453462677,
+      "macdSignal": 3.6903298767362784,
+      "volume": 29494120,
+      "volume20": 34975481.0,
+      "weeklyClose": 717.6300048828125,
+      "weeklyMA30": 705.0060017903646,
+      "higherHigh": true,
+      "higherLow": true,
+      "stage": "unconfirmed 1/3/transition",
+      "support20": 707.22998046875,
+      "resistance55": 762.8599853515625,
+      "return63": 0.017409838692733937,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/QQQ?range=2y&interval=1d"
+    },
+    "IWM": {
+      "date": "2026-10-20",
+      "close": 275.7799987792969,
+      "ma20": 278.02450103759764,
+      "ma50": 287.9802020263672,
+      "ma200": 277.91100082397463,
+      "ma200_previous20": 275.22115074157716,
+      "rsi14": 42.88316703090202,
+      "macd": -3.9645059637530835,
+      "macdSignal": -3.875203204659586,
+      "volume": 26282083,
+      "volume20": 26208279.15,
+      "weeklyClose": 275.7799987792969,
+      "weeklyMA30": 286.05433298746743,
+      "higherHigh": false,
+      "higherLow": false,
+      "stage": "unconfirmed 1/3/transition",
+      "support20": 269.8800048828125,
+      "resistance55": 305.17999267578125,
+      "return63": -0.06130232220906584,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/IWM?range=2y&interval=1d"
+    },
+    "RSP": {
+      "date": "2026-10-20",
+      "close": 215.86000061035156,
+      "ma20": 211.72799911499024,
+      "ma50": 215.61499908447266,
+      "ma200": 206.9491502380371,
+      "ma200_previous20": 205.04825027465822,
+      "rsi14": 58.33716348224221,
+      "macd": 0.04439567002742706,
+      "macdSignal": -0.643199341277558,
+      "volume": 7131454,
+      "volume20": 8275577.7,
+      "weeklyClose": 215.86000061035156,
+      "weeklyMA30": 210.83133290608723,
+      "higherHigh": false,
+      "higherLow": false,
+      "stage": "unconfirmed 1/3/transition",
+      "support20": 207.16000366210938,
+      "resistance55": 223.44000244140625,
+      "return63": 0.01485662297812973,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/RSP?range=2y&interval=1d"
+    },
+    "THB=X": {
+      "date": "2026-10-20",
+      "close": 33.58000183105469,
+      "ma20": 33.55319995880127,
+      "ma50": 33.240120010375975,
+      "ma200": 32.60195496559143,
+      "ma200_previous20": 32.381384973526,
+      "rsi14": 55.60920013519418,
+      "macd": 0.07646880831734393,
+      "macdSignal": 0.0967133644695361,
+      "volume": 0,
+      "volume20": 0.0,
+      "weeklyClose": 33.58000183105469,
+      "weeklyMA30": 32.99166679382324,
+      "higherHigh": true,
+      "higherLow": true,
+      "stage": "2 (rule-based I)",
+      "support20": 33.0890007019043,
+      "resistance55": 33.74300003051758,
+      "return63": -0.00738989022963954,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/THB%3DX?range=2y&interval=1d"
+    },
+    "^TNX": {
+      "date": "2026-10-20",
+      "close": 5.116999626159668,
+      "ma20": 5.209049987792969,
+      "ma50": 4.961939973831177,
+      "ma200": 4.513579978942871,
+      "ma200_previous20": 4.407969982624054,
+      "rsi14": 50.24434662069762,
+      "macd": 0.04495685063162114,
+      "macdSignal": 0.07866750765768657,
+      "volume": 0,
+      "volume20": 0.0,
+      "weeklyClose": 5.116999626159668,
+      "weeklyMA30": 4.662999947865804,
+      "higherHigh": true,
+      "higherLow": true,
+      "stage": "2 (rule-based I)",
+      "support20": 4.926000118255615,
+      "resistance55": 5.363999843597412,
+      "return63": 0.09877594049907867,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/%5ETNX?range=2y&interval=1d"
+    },
+    "CL=F": {
+      "date": "2026-10-20",
+      "close": 98.19999694824219,
+      "ma20": 93.51300010681152,
+      "ma50": 91.81360061645508,
+      "ma200": 84.62670001983642,
+      "ma200_previous20": 81.04274999618531,
+      "rsi14": 56.798947122878126,
+      "macd": 1.9391291261109131,
+      "macdSignal": 1.0560821306240629,
+      "volume": 1310,
+      "volume20": 268871.05,
+      "weeklyClose": 98.19999694824219,
+      "weeklyMA30": 89.62566706339518,
+      "higherHigh": false,
+      "higherLow": true,
+      "stage": "unconfirmed 1/3/transition",
+      "support20": 86.86000061035156,
+      "resistance55": 106.75,
+      "return63": 0.13094546674443386,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/CL%3DF?range=2y&interval=1d"
+    },
+    "DX-Y.NYB": {
+      "date": "2026-10-20",
+      "close": 101.7300033569336,
+      "ma20": 101.84300003051757,
+      "ma50": 100.43239990234375,
+      "ma200": 99.50710010528564,
+      "ma200_previous20": 99.16650009155273,
+      "rsi14": 54.05262523728799,
+      "macd": 0.45357909901359506,
+      "macdSignal": 0.5526938445199031,
+      "volume": 0,
+      "volume20": 0.0,
+      "weeklyClose": 101.7300033569336,
+      "weeklyMA30": 99.98900019327799,
+      "higherHigh": true,
+      "higherLow": true,
+      "stage": "2 (rule-based I)",
+      "support20": 100.30999755859375,
+      "resistance55": 102.94999694824219,
+      "return63": 0.005833537382298415,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/DX-Y.NYB?range=2y&interval=1d"
+    }
+  }
+}
