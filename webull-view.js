@@ -41,6 +41,7 @@
     const tbody=document.getElementById('personalWebullPositionsBody');
     tbody.innerHTML=m.positions.length?m.positions.map(p=>`<tr><td><strong>${escapeWebullText(p.symbol||'—')}</strong><div class="text-[10px] text-slate-500">${escapeWebullText(p.name||p.instrumentType||'')} · ${escapeWebullText(p.currency)}</div></td><td>${formatWebullNumber(p.quantity)}</td><td>${formatWebullMoney(p.averageCost,p.currency)}</td><td>${formatWebullMoney(p.lastPrice,p.currency)}</td><td>${formatWebullMoney(p.marketValue,p.currency)}</td><td>${formatWebullMoney(p.unrealizedPnl,p.currency)} (${masked?'••••':num(p.unrealizedPct)===null?'—':num(p.unrealizedPct).toFixed(2)+'%'})</td></tr>`).join(''):`<tr><td colspan="6" class="text-center py-5 text-slate-500">${m.complete?'Webull ยืนยันว่าไม่มีสถานะถือครอง':'ยังยืนยันรายการถือครองไม่ได้ ไม่สรุปว่าพอร์ตว่าง'}</td></tr>`;
     const issues=[];
+    if(m.accounts.some(a=>a.balance?.totalAssetsMethod==='marketValuePlusCash'))issues.push('ยอดสินทรัพย์รวมคำนวณจากมูลค่าหลักทรัพย์ + เงินสด เพราะ API ไม่ส่งยอด Net Liquidation โดยตรง');
     if(m.suspicious)issues.push('backend รุ่นเดิมส่งยอดศูนย์และรายการว่างโดยไม่มีสถานะยืนยัน จึงแสดง — แทน 0 จนกว่าจะตรวจ API สำเร็จ');
     else if(!m.complete)issues.push('ข้อมูลยังไม่ครบหรือ backend ยังไม่รองรับการยืนยันสถานะ balance/positions');
     if(m.currencies.length>1)issues.push('ยอดสรุปแสดงเฉพาะ '+m.currency+' ไม่รวมข้ามสกุลเงิน');
