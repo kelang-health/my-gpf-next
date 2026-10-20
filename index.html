@@ -1105,9 +1105,14 @@
             <span class="text-[11px]">รายวัน</span>
           </button>
 
+          <button id="nav-personal" onclick="switchPage('personal', this)" class="nav-item flex flex-col items-center gap-1 transition-all">
+            <i class="fa-solid fa-wallet text-lg"></i>
+            <span class="text-[11px]">พอร์ตส่วนตัว</span>
+          </button>
+
           <button onclick="switchPage('thaistock', this)" class="nav-item flex flex-col items-center gap-1 transition-all">
             <i class="fa-solid fa-layer-group text-lg"></i>
-            <span class="text-[11px]">หุ้น กบข.</span>
+            <span class="text-[11px]">ข้อมูลหุ้น</span>
           </button>
 
           <button onclick="switchPage('gold', this)" class="nav-item flex flex-col items-center gap-1 transition-all">
@@ -3704,6 +3709,8 @@
 <script src="investment-math.js?v=20261020-risk1"></script>
 <script src="investment-insights.js?v=20261020-risk1"></script>
 <link rel="stylesheet" href="personal-portfolio.css?v=20261021-1">
-<script src="personal-portfolio.js?v=20261021-2"></script>
+<script src="personal-portfolio.js?v=20261021-navigation1"></script>
+<link rel="stylesheet" href="portfolio-navigation.css?v=20261021-1">
+<script src="portfolio-navigation.js?v=20261021-1"></script>
 </body>
 </html>

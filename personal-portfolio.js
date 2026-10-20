@@ -28,16 +28,19 @@
   const money=(v,c='THB')=>hidden()?'••••':num(v)===null?'ยังไม่ทราบ':new Intl.NumberFormat('th-TH',{style:'currency',currency:c,maximumFractionDigits:2}).format(num(v));
   const rows=x=>x?.available&&Array.isArray(x.rows)?x.rows.slice(1):[];
   const roleName={retirement:'เกษียณระยะยาว',medium:'ระยะกลาง',swing:'เก็งกำไรระยะสั้น',cash:'เงินสด',unassigned:'รอจัดกลยุทธ์'};
+  let actionsBound=false;
   function mount(){
     let box=document.getElementById('personal-portfolio');if(box)return box;
     box=document.createElement('section');box.id='personal-portfolio';box.className='pastel-card pp';
     document.getElementById('page-portfolio').prepend(box);
-    box.addEventListener('click',async e=>{
+    if(!actionsBound){actionsBound=true;
+    const eventHost=document.getElementById('main-app')||document;
+    eventHost.addEventListener('click',async e=>{
       if(e.target.id==='pp-refresh'){const ticket=epoch;await load(true);if(ticket===epoch&&isMithongSession()){await loadPersonalWebullPortfolio(true);const r=await callBackend('getNavData');if(ticket===epoch&&isMithongSession())root.processData(r);}}
       if(e.target.id==='pp-save')await save();
       if(e.target.id==='pp-calc')calculate();
     });
-    box.addEventListener('change',e=>{if(e.target.dataset.position){plan.roles[e.target.dataset.position]=e.target.value;document.getElementById('pp-feedback').textContent='เปลี่ยนกลยุทธ์แล้ว กดบันทึกแผนเพื่อเก็บในบัญชี';}});
+    eventHost.addEventListener('change',e=>{if(e.target.dataset.position){plan.roles[e.target.dataset.position]=e.target.value;document.getElementById('pp-feedback').textContent='เปลี่ยนกลยุทธ์แล้ว กดบันทึกแผนเพื่อเก็บในบัญชี';}});}
     return box;
   }
   function parse(){
@@ -68,7 +71,7 @@
   function render(){
     if(!isMithongSession())return;
     const box=mount();
-    if(hidden()){box.innerHTML='<header class="pp-head"><div><span class="pp-eyebrow">MY PERSONAL PORTFOLIO</span><h2>พอร์ตของฉัน</h2><p>ซ่อนยอด รายการถือครอง และแผนส่วนตัวตามโหมดความเป็นส่วนตัว</p></div></header>';return;}
+    if(hidden()){box.innerHTML='<header class="pp-head"><div><span class="pp-eyebrow">MY PERSONAL PORTFOLIO</span><h2>พอร์ตของฉัน</h2><p>ซ่อนยอด รายการถือครอง และแผนส่วนตัวตามโหมดความเป็นส่วนตัว</p></div></header>';document.dispatchEvent(new CustomEvent('personalportfolio:render',{detail:{masked:true}}));return;}
     const model=parse();
     const known=model.accounts.filter(a=>num(a.value)!==null),total=known.reduce((s,a)=>s+a.value,0),allKnown=known.length===model.accounts.length;
     const field=(key,label,unit,min=0,max=100000000)=>`<label>${label} (${unit})<input type="number" id="pp-${key}" min="${min}" max="${max}" step="any" value="${plan[key]??''}" placeholder="ยังไม่กำหนด"></label>`;
@@ -87,6 +90,7 @@
       <details open><summary>แผนซื้อ · ถือ · ลด / ออก</summary><div class="pp-strategies"><article><h3>กบข. / ระยะยาว</h3><p>ทบทวนสัดส่วนทุกไตรมาส หรือเมื่อเป้าหมายชีวิตเปลี่ยน ใช้เงินนำส่งช่วยปรับสัดส่วน ตรวจสินทรัพย์ภายในแผนก่อนเปลี่ยนกองทุน</p></article><article><h3>ระยะกลาง</h3><p>ระบุเหตุผลลงทุน กรอบเวลา และเงื่อนไขที่ทำให้เหตุผลเปลี่ยน ทบทวนหลังงบและเหตุการณ์สำคัญ ตรวจว่าหุ้นตรงกับ DR / ETF ที่ถือซ้ำหรือไม่</p></article><article><h3>เก็งกำไรระยะสั้น</h3><p>ก่อนซื้อกำหนดราคาซื้อ จุดหยุดทบทวน เป้ากำไร และขนาดสถานะ รวมค่าธรรมเนียม งดเพิ่มสถานะเมื่อใช้งบเสี่ยงครบ</p></article></div><p>แผนเริ่มต้นที่เสนอ: แยกเงิน กบข. ออกจากงบเก็งกำไร จัดกลยุทธ์ Dime / Webull ให้ครบ แล้วกำหนดงบเสี่ยงรวมทั้งสองบัญชี โดยนับหุ้นและ DR ที่อ้างอิงบริษัทเดียวกันเป็นความเสี่ยงกลุ่มเดียว</p><p>${hidden()?'':num(plan.maxLoss)>0&&num(plan.maxLoss)<100?'หากพอร์ตลดลง '+plan.maxLoss+'% ต้องได้ผลตอบแทน '+(100/(1-plan.maxLoss/100)-100).toFixed(1)+'% จากยอดที่เหลือจึงกลับทุนเดิม':''}</p><p class="pp-alert">ขณะนี้ยังไม่มีราคา Bid/Ask พร้อมเวลาของทุกสถานะ จึงยังไม่ออกสัญญาณ BUY อัตโนมัติ การถึง Stop / เป้าเป็นสัญญาณให้ทบทวน ไม่ใช่หลักฐานการขายสำเร็จ</p>
       <h3>จำลองขนาดสถานะและจุดทบทวน (ไม่ส่งคำสั่งซื้อขาย)</h3><div class="pp-fields">${[['entry','ราคาเข้าซื้อ'],['stop','จุดทบทวนขาดทุน'],['target','เป้าหมายขาย'],['budget','งบขาดทุนต่อรายการ'],['fee','ค่าธรรมเนียมไป–กลับรวม'],['lot','จำนวนต่อหน่วยซื้อขาย'],['price','ราคาที่ตรวจสอบล่าสุด']].map(([k,l])=>`<label>${l}<input id="pp-trade-${k}" type="number" min="0" step="any" placeholder="กรอกค่า"></label>`).join('')}<label>วันเวลาราคาที่ตรวจสอบ (เวลาไทย)<input id="pp-trade-time" type="datetime-local"></label></div><p class="pp-note">ใช้ราคาและงบสกุลเงินเดียวกัน ตรวจค่าธรรมเนียมจริงและ Board lot / เศษหุ้นกับโบรกเกอร์ จุด Stop อาจขายจริงได้ต่ำกว่าแผน</p><button id="pp-calc">ประเมินแผน</button><p id="pp-calc-result" role="status"></p></details>
       <footer class="pp-note">แผนนี้เป็นเครื่องมือประกอบการตัดสินใจ ไม่คาดการณ์ผลตอบแทน ไม่รับประกันกำไร · <a href="https://www.investor.gov/introduction-investing/getting-started/asset-allocation" target="_blank" rel="noopener">แนวทางจัดสัดส่วนและกระจายความเสี่ยง SEC Investor.gov</a></footer>`;
+    document.dispatchEvent(new CustomEvent('personalportfolio:render',{detail:{...model,masked:false}}));
   }
   async function load(force=false){
     if(!isMithongSession()||busy)return;const ticket=epoch;busy=true;render();
