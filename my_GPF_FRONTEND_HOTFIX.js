@@ -200,7 +200,7 @@ async function callBackend(action, params = {}) {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload),
       redirect: 'follow',
-      signal: controller.signal,cache:'no-store',referrerPolicy:'no-referrer'
+      signal: controller.signal,cache:'no-store',referrerPolicy:'no-referrer',keepalive:action==='logoutSession'
     });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
@@ -279,6 +279,7 @@ async function login() {
 }
 
 function logout() {
+  const wasSignedIn=!!currentUser;
   if(sessionToken)callBackend('logoutSession').catch(()=>{});
   sessionToken = '';
   document.querySelectorAll('#admin-modal input[type=password],#adminModal input[type=password]').forEach(e=>e.value='');
@@ -294,6 +295,7 @@ function logout() {
   const webullSection = document.getElementById('personalWebullSection');
   if (webullSection) webullSection.classList.add('hidden');
   cachedAiAnalysis = '';
+  if(wasSignedIn)window.location.reload(); // Clear all account data, charts and closures on a shared browser.
 }
 
 async function fetchData() {
