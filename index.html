@@ -2186,8 +2186,8 @@
           var isChecked = defaultChecked.includes(planName) ? 'checked' : '';
           var labelClass = planName === customPlanName ? 'class="custom-plan-label font-bold"' : '';
           var displayName = planName.replace('แผนการลงทุน','');
-          html += `<label ${labelClass}><input type="checkbox" value="${planName}" ${isChecked} onchange="updateDashboard()"> ${displayName}</label>`;
-          selectHtml += `<option value="${planName}">${displayName}</option>`;
+          html += `<label ${labelClass}><input type="checkbox" value="${GpfSecurity.escape(planName)}" ${isChecked} onchange="updateDashboard()"> ${GpfSecurity.escape(displayName)}</label>`;
+          selectHtml += `<option value="${GpfSecurity.escape(planName)}">${GpfSecurity.escape(displayName)}</option>`;
         }
         container.innerHTML = html;
         if (singleSelect) {
@@ -2506,8 +2506,8 @@
           html += `
             <div class="pastel-card p-3 border ${isPositive ? 'border-emerald-100 hover:border-emerald-300' : 'border-rose-100 hover:border-rose-300'} bg-white/90 shadow-xs flex flex-col justify-between">
               <div class="flex items-center justify-between gap-1 mb-1">
-                <span class="text-[11px] font-bold text-slate-800 truncate">${item.flag} ${item.name}</span>
-                <span class="text-[9px] text-slate-400 font-mono">${item.region.split(' ')[0]}</span>
+                <span class="text-[11px] font-bold text-slate-800 truncate">${GpfSecurity.escape(item.flag)} ${GpfSecurity.escape(item.name)}</span>
+                <span class="text-[9px] text-slate-400 font-mono">${GpfSecurity.escape(item.region.split(' ')[0])}</span>
               </div>
               <div class="text-base sm:text-lg font-black text-slate-900 font-mono leading-tight my-0.5">
                 ${priceFmt}
@@ -2543,19 +2543,19 @@
             <tr class="hover:bg-purple-50/40 transition-colors">
               <td class="text-left font-bold text-slate-800">
                 <div class="flex items-center gap-2">
-                  <span class="text-base">${item.flag}</span>
+                  <span class="text-base">${GpfSecurity.escape(item.flag)}</span>
                   <div>
-                    <div>${item.name}</div>
-                    <span class="text-[10px] font-mono text-slate-400 font-normal">${item.symbol.replace('%5E', '^')}</span>
+                    <div>${GpfSecurity.escape(item.name)}</div>
+                    <span class="text-[10px] font-mono text-slate-400 font-normal">${GpfSecurity.escape(item.symbol.replace('%5E', '^'))}</span>
                   </div>
                 </div>
               </td>
-              <td class="text-center text-slate-600 font-medium">${item.region}</td>
+              <td class="text-center text-slate-600 font-medium">${GpfSecurity.escape(item.region)}</td>
               <td class="text-right font-bold text-slate-900 font-mono">${priceStr}</td>
               <td class="text-right font-mono font-semibold ${isPos ? 'text-emerald-600' : 'text-rose-600'}">${sign}${item.diff ? item.diff.toFixed(2) : '0.00'}</td>
               <td class="text-right"><span class="${cls}">${sign}${item.pct.toFixed(2)}%</span></td>
               <td class="text-left text-xs text-purple-900 font-medium">
-                <span class="bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-md text-[11px]">${item.gpfRef}</span>
+                <span class="bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-md text-[11px]">${GpfSecurity.escape(item.gpfRef)}</span>
               </td>
             </tr>
           `;
@@ -2823,7 +2823,7 @@
         var tableHtml = '<table><thead><tr><th>วันที่</th><th>NAV จริง</th><th>คาดการณ์</th><th>ส่วนต่าง</th></tr></thead><tbody>';
         thaiStockDataRaw.slice(-15).reverse().forEach(row => {
           var diffClass = (row.diff === null) ? '' : (row.diff >= 0 ? 'positive' : 'negative');
-          tableHtml += `<tr><td style="text-align:left">${row.date}</td><td>${row.actual===null?'-':row.actual.toFixed(4)}</td><td style="color:#d97706">${row.forecast===null?'-':row.forecast.toFixed(4)}</td><td><span class="${diffClass}">${row.diff===null?'-':(row.diff>0?'+':'')+row.diff.toFixed(4)}</span></td></tr>`;
+          tableHtml += `<tr><td style="text-align:left">${GpfSecurity.escape(row.date)}</td><td>${row.actual===null?'-':row.actual.toFixed(4)}</td><td style="color:#d97706">${row.forecast===null?'-':row.forecast.toFixed(4)}</td><td><span class="${diffClass}">${row.diff===null?'-':(row.diff>0?'+':'')+row.diff.toFixed(4)}</span></td></tr>`;
         });
         document.getElementById('thaistock_table_div').innerHTML = tableHtml + '</tbody></table>';
       }
@@ -3032,11 +3032,11 @@
               <tr class="hover:bg-indigo-50/30 transition-colors">
                 <td class="text-left font-bold text-slate-400 font-mono text-xs pl-2">#${item.rank}</td>
                 <td class="text-left">
-                  <div class="font-bold text-slate-800 text-xs">${item.name}</div>
-                  <div class="text-[10px] text-slate-400 truncate max-w-[200px]" title="${item.fullName}">${item.fullName}</div>
+                  <div class="font-bold text-slate-800 text-xs">${GpfSecurity.escape(item.name)}</div>
+                  <div class="text-[10px] text-slate-400 truncate max-w-[200px]" title="${GpfSecurity.escape(item.fullName)}">${GpfSecurity.escape(item.fullName)}</div>
                 </td>
                 <td class="text-center font-mono text-[11px] font-semibold text-purple-700 bg-purple-50/50 rounded px-1.5 py-0.5">
-                  ${item.symbol.replace('.BK','')}
+                  ${GpfSecurity.escape(item.symbol.replace('.BK',''))}
                 </td>
                 <td class="text-right font-bold text-slate-800 font-mono text-xs">${item.weight.toFixed(2)}%</td>
                 <td class="text-right">
