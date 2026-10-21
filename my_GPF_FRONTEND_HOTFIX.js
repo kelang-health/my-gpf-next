@@ -176,7 +176,8 @@ async function loadPersonalWebullPortfolio(forceRefresh = false) {
 }
 
 async function callBackend(action, params = {}) {
-  const payload = { action: action, ...params };
+  const expectedToken=sessionToken;
+  const payload = { ...params, action: action };
   if (sessionToken) payload.token = sessionToken;
 
   // When the same UI is served by Apps Script HtmlService, call the router
@@ -191,7 +192,7 @@ async function callBackend(action, params = {}) {
   }
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000);
+  const timeoutId = setTimeout(() => controller.abort(), ['generateQuantumAIAnalysis','getAiAnalysis'].includes(action)?90000:15000);
 
   try {
     const res = await fetch(API_URL, {
@@ -199,7 +200,7 @@ async function callBackend(action, params = {}) {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload),
       redirect: 'follow',
-      signal: controller.signal
+      signal: controller.signal,cache:'no-store',referrerPolicy:'no-referrer'
     });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
@@ -209,9 +210,10 @@ async function callBackend(action, params = {}) {
     try {
       data = JSON.parse(text);
     } catch (e) {
-      throw new Error('ไม่สามารถอ่านข้อมูลจากเซิร์ฟเวอร์ได้: ' + text.substring(0, 200));
+      throw new Error('ไม่สามารถอ่านข้อมูลจากเซิร์ฟเวอร์ได้');
     }
 
+    if(expectedToken && expectedToken!==sessionToken)throw new Error('เซสชันเปลี่ยนแล้ว กรุณาลองใหม่');
     if (data && data.code === 'UNAUTHORIZED' && action !== 'login' && action !== 'loginUser') {
       sessionToken = '';
       logout();
@@ -221,7 +223,7 @@ async function callBackend(action, params = {}) {
     return data;
   } catch (e) {
     if (e && e.name === 'AbortError') {
-      throw new Error('เซิร์ฟเวอร์ตอบช้าเกิน 15 วินาที กรุณาลองใหม่');
+      throw new Error('เซิร์ฟเวอร์ตอบช้าเกินเวลาที่กำหนด กรุณาลองใหม่');
     }
     throw new Error('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์: ' + e.message);
   } finally {
@@ -251,6 +253,7 @@ async function login() {
         return;
       }
 
+      document.getElementById('password').value='';
       sessionToken = data.token;
       currentUser = data.username || u;
       customPlanName = '🚀 พอร์ตของ ' + (data.fname || data.user?.fullName || u);
@@ -267,16 +270,18 @@ async function login() {
       msgBox.innerHTML = '';
       await fetchData();
     } else {
-      msgBox.innerHTML = (data && data.message) || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+      msgBox.textContent = (data && data.message) || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
     }
   } catch (err) {
     console.error(err);
-    msgBox.innerHTML = err.message || 'เครือข่ายขัดข้อง กรุณาลองใหม่';
+    msgBox.textContent = err.message || 'เครือข่ายขัดข้อง กรุณาลองใหม่';
   }
 }
 
 function logout() {
+  if(sessionToken)callBackend('logoutSession').catch(()=>{});
   sessionToken = '';
+  document.querySelectorAll('#admin-modal input[type=password],#adminModal input[type=password]').forEach(e=>e.value='');
   currentUser = '';
   cachedPersonalWebullPortfolio = null;
   document.getElementById('username').value = '';

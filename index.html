@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="th">
   <head>
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<script src="vendor/purify.min.js?v=3.4.17"></script>
+<script src="security-core.js?v=20261021-1"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myGPF | ภาพรวมเงินลงทุนของคุณ</title>
@@ -1403,7 +1407,7 @@
             let planName = globalHeaders[i];
             let currentUnit = myUnits[planName] || 0;
             html += `<div style="margin-bottom: 10px; text-align: left;">
-                <label style="font-size: 12px; font-weight: 500; color: #334155; display: block; margin-bottom: 2px;">${planName}</label>
+                <label style="font-size: 12px; font-weight: 500; color: #334155; display: block; margin-bottom: 2px;">${GpfSecurity.escape(planName)}</label>
                 <input type="number" step="any" id="input_plan_${i}" class="w-full bg-purple-50/50 border border-purple-200 rounded-xl px-3 py-2 text-xs" value="${currentUnit}">
             </div>`;
         }
@@ -1796,7 +1800,7 @@
             if (units > 0 || moneyVal > 0) {
               html += `
                 <tr class="hover:bg-purple-50/40">
-                  <td class="font-bold text-slate-800 text-left">${plan}</td>
+                  <td class="font-bold text-slate-800 text-left">${GpfSecurity.escape(plan)}</td>
                   <td class="text-right text-slate-600 font-mono">${units.toLocaleString('th-TH', {minimumFractionDigits: 4, maximumFractionDigits: 4})}</td>
                   <td class="text-right text-slate-600 font-mono">${navPrice.toFixed(4)}</td>
                   <td class="text-right font-bold text-purple-900">${maskValue(moneyVal)}</td>
@@ -1819,12 +1823,12 @@
           const res = await callBackend('generateQuantumAIAnalysis', { username: currentUser, requestedEngine: selectedEngine });
           if(res && (res.status === "success" || res.analysis)) {
             const engineLabel = res.engineName || selectedEngine;
-            const parsedText = marked.parse(res.analysis);
+            const parsedText = GpfSecurity.markdown(res.analysis);
             resultDiv.innerHTML = `
               <div class="text-left space-y-2">
                 <div class="text-[11px] text-purple-400 font-semibold border-b border-slate-800 pb-2 mb-3 flex items-center justify-between">
-                  <span><i class="fa-solid fa-cpu mr-1"></i> ประมวลผลสำเร็จโดย: ${engineLabel}</span>
-                  <span class="text-emerald-400"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                  <span><i class="fa-solid fa-cpu mr-1"></i> ประมวลผลสำเร็จโดย: ${GpfSecurity.escape(engineLabel)}</span>
+                  <span class="text-emerald-400"><i class="fa-solid fa-circle-check"></i> ผลจาก AI ต้องตรวจสอบ</span>
                 </div>
                 ${parsedText}
               </div>
@@ -3611,12 +3615,12 @@
           const cfg = await callBackend('getAdminConfig');
           document.getElementById('inputPrimaryAi').value = cfg.primaryAi || 'gemini';
           document.getElementById('inputBackupAi').value = cfg.backupAi || 'groq';
-          document.getElementById('inputGeminiKey').value = cfg.geminiKey || '';
-          document.getElementById('inputGroqKey').value = cfg.groqKey || '';
-          document.getElementById('inputOpenrouterKey').value = cfg.openrouterKey || '';
-          document.getElementById('inputGithubKey').value = cfg.githubKey || '';
-          document.getElementById('inputDeepseekKey').value = cfg.deepseekKey || '';
-          document.getElementById('inputOpenaiKey').value = cfg.openaiKey || '';
+          document.getElementById('inputGeminiKey').value = ''; document.getElementById('inputGeminiKey').placeholder = cfg.configured?.geminiKey ? 'ตั้งค่าแล้ว — เว้นว่างเพื่อคงเดิม' : 'ยังไม่ตั้งค่า';
+          document.getElementById('inputGroqKey').value = ''; document.getElementById('inputGroqKey').placeholder = cfg.configured?.groqKey ? 'ตั้งค่าแล้ว — เว้นว่างเพื่อคงเดิม' : 'ยังไม่ตั้งค่า';
+          document.getElementById('inputOpenrouterKey').value = ''; document.getElementById('inputOpenrouterKey').placeholder = cfg.configured?.openrouterKey ? 'ตั้งค่าแล้ว — เว้นว่างเพื่อคงเดิม' : 'ยังไม่ตั้งค่า';
+          document.getElementById('inputGithubKey').value = ''; document.getElementById('inputGithubKey').placeholder = cfg.configured?.githubKey ? 'ตั้งค่าแล้ว — เว้นว่างเพื่อคงเดิม' : 'ยังไม่ตั้งค่า';
+          document.getElementById('inputDeepseekKey').value = ''; document.getElementById('inputDeepseekKey').placeholder = cfg.configured?.deepseekKey ? 'ตั้งค่าแล้ว — เว้นว่างเพื่อคงเดิม' : 'ยังไม่ตั้งค่า';
+          document.getElementById('inputOpenaiKey').value = ''; document.getElementById('inputOpenaiKey').placeholder = cfg.configured?.openaiKey ? 'ตั้งค่าแล้ว — เว้นว่างเพื่อคงเดิม' : 'ยังไม่ตั้งค่า';
         } catch (e) { console.error(e); }
       }
 
@@ -3642,15 +3646,16 @@
         try {
           const users = await callBackend('getUsersList');
           const tbody = document.getElementById('adminUsersTableBody');
+          tbody.onclick=e=>{const button=e.target.closest('button[data-delete-user]');if(button)deleteUser(button.dataset.deleteUser);};
           tbody.innerHTML = '';
           users.forEach(u => {
             tbody.innerHTML += `
               <tr class="border-b border-purple-50 hover:bg-purple-50/30">
-                <td class="p-2">${u.username}</td>
-                <td class="p-2">${u.fullName}</td>
-                <td class="p-2"><span class="px-2 py-0.5 rounded text-[10px] font-semibold ${u.role === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100'}">${u.role}</span></td>
+                <td class="p-2">${GpfSecurity.escape(u.username)}</td>
+                <td class="p-2">${GpfSecurity.escape(u.fullName)}</td>
+                <td class="p-2"><span class="px-2 py-0.5 rounded text-[10px] font-semibold ${u.role === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100'}">${GpfSecurity.escape(u.role)}</span></td>
                 <td class="p-2 text-center">
-                  <button onclick="deleteUser('${u.username}')" class="text-rose-500 hover:text-rose-700 text-xs"><i class="fa-solid fa-trash"></i></button>
+                  <button data-delete-user="${GpfSecurity.escape(u.username)}" class="text-rose-500 hover:text-rose-700 text-xs"><i class="fa-solid fa-trash"></i></button>
                 </td>
               </tr>
             `;
@@ -3705,7 +3710,7 @@
       });
     </script>
     
-    <script src="my_GPF_FRONTEND_HOTFIX.js?v=20261020-risk1"></script>
+    <script src="my_GPF_FRONTEND_HOTFIX.js?v=20261021-security1"></script>
 <script src="webull-view.js?v=20261020-webull3"></script>
 <script src="investment-math.js?v=20261020-risk1"></script>
 <script src="investment-insights.js?v=20261020-risk1"></script>
@@ -3714,9 +3719,10 @@
 <link rel="stylesheet" href="portfolio-navigation.css?v=20261021-1">
 <script src="portfolio-navigation.js?v=20261021-dime1"></script>
 <link rel="stylesheet" href="equity-research.css?v=20261021-1">
-<script src="equity-research.js?v=20261021-1"></script>
+<script src="equity-research.js?v=20261021-security1"></script>
 <script src="trading-challenge.js?v=20261021-1"></script>
 <link rel="stylesheet" href="vivid-theme.css?v=20261021-1">
 <script src="vivid-theme.js?v=20261021-1"></script>
+<script src="ai-analysis.js?v=20261021-1"></script>
 </body>
 </html>
