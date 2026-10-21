@@ -177,15 +177,30 @@ async function loadPersonalWebullPortfolio(forceRefresh = false) {
 
 async function callBackend(action, params = {}) {
   const expectedToken=sessionToken;
+  const publicActions=['login','loginUser','getPublicConfig','healthCheck','getThaiStockData','getGoldData'];
+  if(!expectedToken&&!publicActions.includes(action)){
+    const error=new Error('กรุณาเข้าสู่ระบบก่อนเรียกข้อมูลส่วนตัว');
+    error.code='AUTH_REQUIRED';
+    throw error;
+  }
   const payload = { ...params, action: action };
   if (sessionToken) payload.token = sessionToken;
+  function acceptResponse(data){
+    // An old anonymous request must never log out a newly signed-in user.
+    if(expectedToken!==sessionToken)throw new Error('เซสชันเปลี่ยนแล้ว กรุณาลองใหม่');
+    if(data?.code==='UNAUTHORIZED'&&!['login','loginUser'].includes(action)){
+      if(expectedToken){sessionToken='';logout();}
+      throw new Error(data.message||'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่');
+    }
+    return data;
+  }
 
   // When the same UI is served by Apps Script HtmlService, call the router
   // instead of invoking individual server functions directly.
   if (typeof google !== 'undefined' && google.script && google.script.run) {
     return new Promise((resolve, reject) => {
       google.script.run
-        .withSuccessHandler(resolve)
+        .withSuccessHandler(data=>{try{resolve(acceptResponse(data));}catch(error){reject(error);}})
         .withFailureHandler(reject)
         .handleApiRequest(payload);
     });
@@ -213,14 +228,7 @@ async function callBackend(action, params = {}) {
       throw new Error('ไม่สามารถอ่านข้อมูลจากเซิร์ฟเวอร์ได้');
     }
 
-    if(expectedToken && expectedToken!==sessionToken)throw new Error('เซสชันเปลี่ยนแล้ว กรุณาลองใหม่');
-    if (data && data.code === 'UNAUTHORIZED' && action !== 'login' && action !== 'loginUser') {
-      sessionToken = '';
-      logout();
-      throw new Error(data.message || 'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่');
-    }
-
-    return data;
+    return acceptResponse(data);
   } catch (e) {
     if (e && e.name === 'AbortError') {
       throw new Error('เซิร์ฟเวอร์ตอบช้าเกินเวลาที่กำหนด กรุณาลองใหม่');
@@ -269,6 +277,7 @@ async function login() {
 
       msgBox.innerHTML = '';
       await fetchData();
+      if(sessionToken&&currentUser)initGpfHoldingsDashboard();
     } else {
       msgBox.textContent = (data && data.message) || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
     }
@@ -359,6 +368,10 @@ async function fetchGpfHoldingsPrices(category = currentHoldingsCategory) {
   if (!catData) return { liveCount: 0, total: 0 };
 
   const timeEl = document.getElementById('holdings_last_updated');
+  if(!sessionToken||!currentUser){
+    if(category===currentHoldingsCategory&&timeEl)timeEl.textContent='ราคาอ้างอิง · เข้าสู่ระบบเพื่ออัปเดตราคาตลาด';
+    return {liveCount:0,total:catData.items.length,requiresLogin:true};
+  }
   if (category === currentHoldingsCategory && timeEl) {
     timeEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1 text-indigo-500"></i> กำลังดึงราคาตลาด...';
   }
