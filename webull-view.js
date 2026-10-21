@@ -25,7 +25,7 @@
     const n=num(value);if(n===null)return '—';
     try{return new Intl.NumberFormat('th-TH',{style:'currency',currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(n);}catch(e){return currency+' '+n.toFixed(2);}
   };
-  root.formatWebullNumber=function(value,digits=4){if(typeof isMasked!=='undefined'&&isMasked)return '••••';const n=num(value);return n===null?'—':n.toLocaleString('th-TH',{maximumFractionDigits:digits});};
+  root.formatWebullNumber=function(value,digits=2){if(typeof isMasked!=='undefined'&&isMasked)return '••••';const n=num(value);return n===null?'—':n.toLocaleString('th-TH',{maximumFractionDigits:2});};
   root.renderPersonalWebullPortfolio=function(result){
     const section=document.getElementById('personalWebullSection');if(!section)return;
     if(!isMithongSession()){section.classList.add('hidden');return;}

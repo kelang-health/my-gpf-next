@@ -17,6 +17,7 @@
     <!-- Libraries: Google Charts, Chart.js, html2canvas, SweetAlert2, Marked -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="number-display.js?v=20261021-1"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -1297,7 +1298,7 @@
         if (!isMasked) {
           return isCurrency 
             ? '฿' + num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-            : num.toFixed(4);
+            : num.toFixed(2);
         }
         let str = num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         if (str.length <= 4) return '฿X.XX';
@@ -1801,8 +1802,8 @@
               html += `
                 <tr class="hover:bg-purple-50/40">
                   <td class="font-bold text-slate-800 text-left">${GpfSecurity.escape(plan)}</td>
-                  <td class="text-right text-slate-600 font-mono">${units.toLocaleString('th-TH', {minimumFractionDigits: 4, maximumFractionDigits: 4})}</td>
-                  <td class="text-right text-slate-600 font-mono">${navPrice.toFixed(4)}</td>
+                  <td class="text-right text-slate-600 font-mono">${units.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                  <td class="text-right text-slate-600 font-mono">${navPrice.toFixed(2)}</td>
                   <td class="text-right font-bold text-purple-900">${maskValue(moneyVal)}</td>
                   <td class="text-right font-bold text-purple-600">${weightPct.toFixed(2)}%</td>
                 </tr>
@@ -2047,7 +2048,7 @@
                 ticks: {
                   font: { family: 'Prompt', size: 10 },
                   callback: function(value) {
-                    return (value >= 0 ? '+' : '') + (Math.abs(value) >= 1000 ? (value/1000).toFixed(0) + 'k' : value) + ' ฿';
+                    return (value >= 0 ? '+' : '') + (Math.abs(value) >= 1000 ? GpfNumbers.fixed(value/1000) + 'k' : GpfNumbers.fixed(value)) + ' ฿';
                   }
                 },
                 grid: { color: 'rgba(124, 58, 237, 0.1)' }
@@ -2108,7 +2109,7 @@
                 angleLines: { color: 'rgba(124, 58, 237, 0.15)' },
                 grid: { color: 'rgba(124, 58, 237, 0.1)' },
                 pointLabels: { font: { family: 'Prompt', size: 11, weight: '600' }, color: '#1e1b4b' },
-                ticks: { backdropColor: 'transparent', font: { size: 10 } }
+                ticks: { callback: v => GpfNumbers.fixed(v), backdropColor: 'transparent', font: { size: 10 } }
               }
             }
           }
@@ -2248,13 +2249,13 @@
             var maxVal = allVals.length > 0 ? Math.max(...allVals) : curVal;
 
             var kpiNav = document.getElementById('sp_kpi_nav');
-            if (kpiNav) kpiNav.innerText = curVal.toFixed(4) + ' ฿';
+            if (kpiNav) kpiNav.innerText = curVal.toFixed(2) + ' ฿';
 
             var kpiDiff = document.getElementById('sp_kpi_diff');
             if (kpiDiff) {
               var sign = diff >= 0 ? '+' : '';
               var dClass = diff >= 0 ? 'text-emerald-600' : 'text-rose-600';
-              kpiDiff.innerHTML = `<span class="${dClass}">${sign}${diff.toFixed(4)} (${sign}${pct.toFixed(2)}%)</span>`;
+              kpiDiff.innerHTML = `<span class="${dClass}">${sign}${diff.toFixed(2)} (${sign}${pct.toFixed(2)}%)</span>`;
             }
 
             var kpiYtd = document.getElementById('sp_kpi_ytd');
@@ -2328,7 +2329,7 @@
 
         var chartContainer = document.getElementById('chart_div');
         if (chartContainer) {
-          new google.visualization.LineChart(chartContainer).draw(chartData, options);
+          new google.visualization.LineChart(chartContainer).draw(GpfNumbers.googleData(chartData), options);
         }
       }
 
@@ -2345,8 +2346,8 @@
             dt.addRow([r.date, r.diff, r.diff >= 0 ? 'color: #34d399' : 'color: #f87171', tooltipHtml]);
         });
 
-        var options = { fontName: 'Prompt', legend: 'none', vAxis: { textStyle: {color: '#6b7280'}, gridlines: {color: '#f3e8ff'} }, hAxis: { textStyle: {color: '#6b7280'}, slantedText: true, slantedTextAngle: 45 }, chartArea: { width: '85%', height: '65%', top: 20, bottom: 50 }, backgroundColor: 'transparent', tooltip: {isHtml: true} };
-        new google.visualization.ColumnChart(document.getElementById('daily_chart_div')).draw(dt, options);
+        var options = { fontName: 'Prompt', legend: 'none', vAxis: { format: '#,##0.00', textStyle: {color: '#6b7280'}, gridlines: {color: '#f3e8ff'} }, hAxis: { textStyle: {color: '#6b7280'}, slantedText: true, slantedTextAngle: 45 }, chartArea: { width: '85%', height: '65%', top: 20, bottom: 50 }, backgroundColor: 'transparent', tooltip: {isHtml: true} };
+        new google.visualization.ColumnChart(document.getElementById('daily_chart_div')).draw(GpfNumbers.googleData(dt), options);
 
         var myPlanNames = Object.keys(myUnits);
         var tableHtml = `<div style="font-size: 12px; color: #6b7280; margin-bottom: 8px; text-align: left;">📊 ข้อมูลรวม 20 วันล่าสุด: <span style="color:#059669; font-weight:bold;">บวกพลัง ${winCount} วัน</span> / <span style="color:#dc2626; font-weight:bold;">ย่อตัว ${lossCount} วัน</span></div><table><thead><tr><th>วันที่</th><th>มูลค่าสุทธิ</th><th>ขยับ (฿)</th><th>ขยับ (%)</th>`;
@@ -2537,7 +2538,7 @@
           let sign = isPos ? '+' : '';
           let cls = isPos ? 'positive' : 'negative';
           let priceStr = item.price.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          if (item.id === 'USDTHB') priceStr = item.price.toFixed(4) + ' ฿';
+          if (item.id === 'USDTHB') priceStr = item.price.toFixed(2) + ' ฿';
 
           html += `
             <tr class="hover:bg-purple-50/40 transition-colors">
@@ -2593,14 +2594,14 @@
               legend: { display: false },
               tooltip: {
                 callbacks: {
-                  label: function(ctx) { return ' เปลี่ยนแปลง: ' + (ctx.raw >= 0 ? '+' : '') + ctx.raw + '%'; }
+                  label: function(ctx) { return ' เปลี่ยนแปลง: ' + (ctx.raw >= 0 ? '+' : '') + GpfNumbers.fixed(ctx.raw) + '%'; }
                 }
               }
             },
             scales: {
               y: {
                 ticks: {
-                  callback: function(v) { return (v >= 0 ? '+' : '') + v + '%'; },
+                  callback: function(v) { return (v >= 0 ? '+' : '') + GpfNumbers.fixed(v) + '%'; },
                   font: { family: 'Prompt', size: 10 }
                 },
                 grid: { color: 'rgba(233, 213, 255, 0.4)' }
@@ -2812,18 +2813,18 @@
           pointSize: 3,
           colors: ['#10b981', '#f59e0b'],
           legend: { position: 'top', textStyle: { fontSize: 11 } },
-          vAxis: { textStyle: { color: '#6b7280' }, gridlines: { color: '#f3e8ff' } },
+          vAxis: { format: '#,##0.00', textStyle: { color: '#6b7280' }, gridlines: { color: '#f3e8ff' } },
           hAxis: { textStyle: { color: '#6b7280' }, slantedText: true, slantedTextAngle: 45 },
           chartArea: { width: '85%', height: '65%', top: 30, bottom: 50 },
           backgroundColor: 'transparent'
         };
 
-        new google.visualization.LineChart(chartDiv).draw(dt, options);
+        new google.visualization.LineChart(chartDiv).draw(GpfNumbers.googleData(dt), options);
 
         var tableHtml = '<table><thead><tr><th>วันที่</th><th>NAV จริง</th><th>คาดการณ์</th><th>ส่วนต่าง</th></tr></thead><tbody>';
         thaiStockDataRaw.slice(-15).reverse().forEach(row => {
           var diffClass = (row.diff === null) ? '' : (row.diff >= 0 ? 'positive' : 'negative');
-          tableHtml += `<tr><td style="text-align:left">${GpfSecurity.escape(row.date)}</td><td>${row.actual===null?'-':row.actual.toFixed(4)}</td><td style="color:#d97706">${row.forecast===null?'-':row.forecast.toFixed(4)}</td><td><span class="${diffClass}">${row.diff===null?'-':(row.diff>0?'+':'')+row.diff.toFixed(4)}</span></td></tr>`;
+          tableHtml += `<tr><td style="text-align:left">${GpfSecurity.escape(row.date)}</td><td>${row.actual===null?'-':row.actual.toFixed(2)}</td><td style="color:#d97706">${row.forecast===null?'-':row.forecast.toFixed(2)}</td><td><span class="${diffClass}">${row.diff===null?'-':(row.diff>0?'+':'')+row.diff.toFixed(2)}</span></td></tr>`;
         });
         document.getElementById('thaistock_table_div').innerHTML = tableHtml + '</tbody></table>';
       }
@@ -3051,7 +3052,7 @@
                 </td>
                 <td class="text-right font-mono text-xs">
                   <span class="inline-block px-2 py-0.5 rounded-full border text-[11px] font-bold ${impactCls}">
-                    ${impactSign}${impactVal.toFixed(3)}%
+                    ${impactSign}${impactVal.toFixed(2)}%
                   </span>
                 </td>
               </tr>
@@ -3114,7 +3115,7 @@
                 callbacks: {
                   label: function(ctx) {
                     let v = ctx.raw;
-                    return ' ผลกระทบต่อพอร์ต: ' + (v >= 0 ? '+' : '') + v + '%';
+                    return ' ผลกระทบต่อพอร์ต: ' + (v >= 0 ? '+' : '') + GpfNumbers.fixed(v) + '%';
                   }
                 }
               }
@@ -3122,7 +3123,7 @@
             scales: {
               y: {
                 ticks: {
-                  callback: function(v) { return (v >= 0 ? '+' : '') + v + '%'; },
+                  callback: function(v) { return (v >= 0 ? '+' : '') + GpfNumbers.fixed(v) + '%'; },
                   font: { family: 'Prompt', size: 10 }
                 },
                 grid: { color: 'rgba(233, 213, 255, 0.4)' }
@@ -3488,14 +3489,14 @@
               legend: { display: false },
               tooltip: {
                 callbacks: {
-                  label: function(ctx) { return ' เปลี่ยนแปลง: ' + (ctx.raw >= 0 ? '+' : '') + ctx.raw + '%'; }
+                  label: function(ctx) { return ' เปลี่ยนแปลง: ' + (ctx.raw >= 0 ? '+' : '') + GpfNumbers.fixed(ctx.raw) + '%'; }
                 }
               }
             },
             scales: {
               y: {
                 ticks: {
-                  callback: function(v) { return (v >= 0 ? '+' : '') + v + '%'; },
+                  callback: function(v) { return (v >= 0 ? '+' : '') + GpfNumbers.fixed(v) + '%'; },
                   font: { family: 'Prompt', size: 10 }
                 },
                 grid: { color: 'rgba(251, 191, 36, 0.2)' }
@@ -3568,19 +3569,19 @@
           pointSize: 3,
           colors: ['#f59e0b', '#8b5cf6'],
           legend: { position: 'top', textStyle: { fontSize: 11 } },
-          vAxis: { textStyle: { color: '#6b7280' }, gridlines: { color: '#fef3c7' } },
+          vAxis: { format: '#,##0.00', textStyle: { color: '#6b7280' }, gridlines: { color: '#fef3c7' } },
           hAxis: { textStyle: { color: '#6b7280' }, slantedText: true, slantedTextAngle: 45 },
           chartArea: { width: '85%', height: '65%', top: 30, bottom: 50 },
           backgroundColor: 'transparent'
         };
 
-        new google.visualization.LineChart(chartDiv).draw(dt, options);
+        new google.visualization.LineChart(chartDiv).draw(GpfNumbers.googleData(dt), options);
 
         var tableHtml = '<table><thead><tr><th>วันที่</th><th>NAV จริง</th><th>คาดการณ์ (SPDR)</th><th>ส่วนต่าง</th></tr></thead><tbody>';
         goldDataRaw.slice(-15).reverse().forEach(row => {
           var diffVal = parseFloat(row[5]);
           var diffClass = isNaN(diffVal) ? '' : (diffVal >= 0 ? 'positive' : 'negative');
-          tableHtml += `<tr><td style="text-align:left">${formatShortDate(row[0])}</td><td>${isNaN(parseFloat(row[3]))?'-':parseFloat(row[3]).toFixed(4)}</td><td style="color:#7c3aed">${isNaN(parseFloat(row[4]))?'-':parseFloat(row[4]).toFixed(4)}</td><td><span class="${diffClass}">${isNaN(diffVal)?'-':(diffVal>0?'+':'')+diffVal.toFixed(4)}</span></td></tr>`;
+          tableHtml += `<tr><td style="text-align:left">${formatShortDate(row[0])}</td><td>${isNaN(parseFloat(row[3]))?'-':parseFloat(row[3]).toFixed(2)}</td><td style="color:#7c3aed">${isNaN(parseFloat(row[4]))?'-':parseFloat(row[4]).toFixed(2)}</td><td><span class="${diffClass}">${isNaN(diffVal)?'-':(diffVal>0?'+':'')+diffVal.toFixed(2)}</span></td></tr>`;
         });
         const tableDiv = document.getElementById('gold_table_div');
         if (tableDiv) tableDiv.innerHTML = tableHtml + '</tbody></table>';
@@ -3710,14 +3711,14 @@
       });
     </script>
     
-    <script src="my_GPF_FRONTEND_HOTFIX.js?v=20261021-security2"></script>
-<script src="webull-view.js?v=20261020-webull3"></script>
+    <script src="my_GPF_FRONTEND_HOTFIX.js?v=20261021-decimal2"></script>
+<script src="webull-view.js?v=20261021-decimal2"></script>
 <script src="investment-math.js?v=20261020-risk1"></script>
-<script src="investment-insights.js?v=20261020-risk1"></script>
+<script src="investment-insights.js?v=20261021-decimal2"></script>
 <link rel="stylesheet" href="personal-portfolio.css?v=20261021-1">
-<script src="personal-portfolio.js?v=20261021-challenge1"></script>
+<script src="personal-portfolio.js?v=20261021-decimal2"></script>
 <link rel="stylesheet" href="portfolio-navigation.css?v=20261021-1">
-<script src="portfolio-navigation.js?v=20261021-dime1"></script>
+<script src="portfolio-navigation.js?v=20261021-decimal2"></script>
 <link rel="stylesheet" href="equity-research.css?v=20261021-1">
 <script src="equity-research.js?v=20261021-security1"></script>
 <script src="trading-challenge.js?v=20261021-1"></script>

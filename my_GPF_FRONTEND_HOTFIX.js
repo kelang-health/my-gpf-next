@@ -37,11 +37,11 @@ function formatWebullMoney(value, currency = 'USD') {
   }
 }
 
-function formatWebullNumber(value, digits = 4) {
+function formatWebullNumber(value, digits = 2) {
   if (isMasked) return '••••';
   return (Number(value) || 0).toLocaleString('th-TH', {
     minimumFractionDigits: 0,
-    maximumFractionDigits: digits
+    maximumFractionDigits: 2
   });
 }
 
