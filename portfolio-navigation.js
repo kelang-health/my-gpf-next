@@ -12,6 +12,7 @@
   p.addEventListener('change',e=>{if(e.target.id==='personal-role-filter'){personalFilter=e.target.value;filterRoles();}else if(e.target.dataset.position)filterRoles();});return p;
  }
  function filterRoles(){const table=document.querySelector('#personal-details table');if(!table)return;Array.from(table.tBodies).forEach(tb=>Array.from(tb.rows).forEach(row=>{const role=row.querySelector('select[data-position]')?.value;row.hidden=personalFilter!=='all'&&role!==personalFilter;}));}
+ function syncPersonalNav(){const nav=document.getElementById('nav-personal');if(nav)nav.style.display=isMithongSession()?'':'none';}
  function route(id){switchPage(id,document.querySelector(id==='personal'?'#nav-personal':`[onclick="switchPage('${id}', this)"]`));}
  function stockSetup(){
   const page=document.getElementById('page-thaistock');if(!page||document.getElementById('stock-gpf'))return;
@@ -69,8 +70,9 @@
   readWatch();renderStocks();
   if(!document.getElementById('page-portfolio').classList.contains('hidden'))document.getElementById('main_title').textContent='📈 ภาพรวมทุกพอร์ต';
  }
- personalPage();stockSetup();
- const oldSwitch=window.switchPage;window.switchPage=function(id,el){personalPage();const result=oldSwitch.apply(this,arguments);const titles={portfolio:'📈 ภาพรวมทุกพอร์ต',personal:'💼 พอร์ตส่วนตัว · ระยะสั้น–กลาง',thaistock:'📊 ข้อมูลหุ้นและหลักทรัพย์'};if(titles[id])document.getElementById('main_title').textContent=titles[id];if(id==='thaistock')selectStocks(stockTab);if(id==='personal'||id==='thaistock')renderStocks();window.scrollTo({top:0,behavior:'auto'});return result;};
+ personalPage();stockSetup();syncPersonalNav();
+ const oldLogin=window.login;window.login=async function(){try{return await oldLogin.apply(this,arguments);}finally{syncPersonalNav();}};
+ const oldSwitch=window.switchPage;window.switchPage=function(id,el){if(id==='personal'&&!isMithongSession())return;personalPage();const result=oldSwitch.apply(this,arguments);const titles={portfolio:'📈 ภาพรวมทุกพอร์ต',personal:'💼 พอร์ตส่วนตัว · ระยะสั้น–กลาง',thaistock:'📊 ข้อมูลหุ้นและหลักทรัพย์'};if(titles[id])document.getElementById('main_title').textContent=titles[id];if(id==='thaistock')selectStocks(stockTab);if(id==='personal'||id==='thaistock')renderStocks();window.scrollTo({top:0,behavior:'auto'});return result;};
  document.addEventListener('personalportfolio:render',e=>organize(e.detail));
- const oldLogout=window.logout;window.logout=function(){snapshot=null;watch=[];quoteRequest++;const q=document.getElementById('shared-quote-result');if(q)q.textContent='';const input=document.getElementById('shared-quote-symbol');if(input)input.value='';document.getElementById('personal-details')?.replaceChildren();document.getElementById('personal-intro').innerHTML='<h2>พอร์ตส่วนตัว</h2><p>เข้าสู่ระบบเพื่อดูพอร์ตของคุณ</p>';const ret=oldLogout.apply(this,arguments);renderStocks();return ret;};
+ const oldLogout=window.logout;window.logout=function(){snapshot=null;watch=[];quoteRequest++;const q=document.getElementById('shared-quote-result');if(q)q.textContent='';const input=document.getElementById('shared-quote-symbol');if(input)input.value='';document.getElementById('personal-details')?.replaceChildren();document.getElementById('personal-intro').innerHTML='<h2>พอร์ตส่วนตัว</h2><p>เข้าสู่ระบบเพื่อดูพอร์ตของคุณ</p>';const ret=oldLogout.apply(this,arguments);syncPersonalNav();renderStocks();return ret;};
 })();
