@@ -18,10 +18,12 @@
     return 'ถือภายใต้แผน / ติดตาม';
   }
   function overlap(symbol){return ({GOOGL:'ALPHABET',GOOG:'ALPHABET',GOOG80:'ALPHABET',NVDA06:'NVIDIA',NVDA80:'NVIDIA',NVDA:'NVIDIA',MSFT06:'MICROSOFT',MSFT80:'MICROSOFT',MSFT:'MICROSOFT',AMZN06:'AMAZON',AMZN80:'AMAZON',AMZN:'AMAZON',AVGO80:'BROADCOM',AVGO:'BROADCOM',GLD:'GOLD',IAU:'GOLD',IAUI:'GOLD'})[symbol]||symbol;}
-  const api={num,sum,sizeTrade,signal,overlap};
+  function quoteSymbol(symbol,currency){const s=String(symbol||'').trim().toUpperCase();if(!/^[A-Z0-9.-]{1,24}$/.test(s))return null;return currency==='THB'?(s.endsWith('.BK')?s:s+'.BK'):currency==='USD'?s:null;}
+  function quoteValue(quantity,quote){const q=num(quantity),price=num(quote?.price);return q!==null&&q>=0&&price!==null&&price>0?q*price:null;}
+  const api={num,sum,sizeTrade,signal,overlap,quoteSymbol,quoteValue};
   if(typeof module!=='undefined'&&module.exports){module.exports=api;return;}
   root.PersonalPortfolio=api;
-  let nav=null, data=null, webull=null, epoch=0, loaded=false, busy=false;
+  let nav=null, data=null, webull=null, quotes={}, quotesAt=null, quoteState="", lookup=null, epoch=0, loaded=false, busy=false;
   let plan={maxLoss:50,years:null,monthly:null,risk:null,weekly:null,monthlyStop:null,targets:[],roles:{}};
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const hidden=()=>typeof isMasked!=='undefined'&&isMasked;
@@ -37,6 +39,7 @@
     const eventHost=document.getElementById('main-app')||document;
     eventHost.addEventListener('click',async e=>{
       if(e.target.id==='pp-refresh'){const ticket=epoch;await load(true);if(ticket===epoch&&isMithongSession()){await loadPersonalWebullPortfolio(true);const r=await callBackend('getNavData');if(ticket===epoch&&isMithongSession())root.processData(r);}}
+      if(e.target.id==='pp-quote-search')await lookupQuote();
       if(e.target.id==='pp-save')await save();
       if(e.target.id==='pp-calc')calculate();
       if(e.target.dataset.dimeEdit)openDimeEditor(e.target.dataset.dimeEdit);
@@ -57,8 +60,8 @@
     const dimeDate=sv('วันที่ข้อมูล')||'—';
     const seen=new Set();
     const adjustments=rows(data?.dimeAdjustments).filter(r=>r[1]==='mithong');
-    dr.forEach(r=>{const key='Dime:'+r[0]+':'+r[2]+':'+r[3];if(seen.has(key))return;seen.add(key);const edit=adjustments.find(a=>a[0]===key),q=edit?num(edit[2]):num(r[5]),price=num(r[7]);positions.push({key,broker:'Dime',symbol:r[3],currency:r[2],value:edit?(q===0?0:price!==null&&q!==null?q*price:null):num(r[8]),quantity:q,price,date:edit?edit[3]:r[0],priceDate:r[0],manual:!!edit,role:plan.roles[key]||'unassigned',note:edit?(q===0?'ปิดสถานะ (0 หุ้น) · ':'')+'จำนวนที่แก้ไขเอง × ราคาอ้างอิง statement '+r[0]+'; ไม่ใช่มูลค่าตลาดล่าสุด':''});});
-    accounts.push({name:'Dime',value:adjustments.length?null:num(sv('รวมสองบัญชีเทียบบาท')),cash:adjustments.length?null:sum([sv('เงินสดต่างประเทศเทียบบาท'),sv('เงินสดบัญชีไทย')]),date:adjustments.length?adjustments.map(r=>r[3]).sort().at(-1):dimeDate,note:adjustments.length?'แก้จำนวนหุ้นแล้ว; ยอดรวมและเงินสดรอยืนยัน ไม่รวมยอด statement เดิมเป็นยอดปัจจุบัน':'ยอดย้อนหลัง รวมเงินสด ใช้ FX ตาม statement ไม่ใช่ FX ปัจจุบัน'});
+    dr.forEach(r=>{const key='Dime:'+r[0]+':'+r[2]+':'+r[3];if(seen.has(key))return;seen.add(key);const edit=adjustments.find(a=>a[0]===key),q=edit?num(edit[2]):num(r[5]),symbol=quoteSymbol(r[3],r[2]),quote=symbol&&quotes[symbol],marketValue=quoteValue(q,quote),statementPrice=num(r[7]),price=marketValue!==null?num(quote.price):statementPrice;positions.push({key,broker:'Dime',symbol:r[3],currency:r[2],value:marketValue!==null?marketValue:edit?(q===0?0:statementPrice!==null&&q!==null?q*statementPrice:null):num(r[8]),quantity:q,price,date:edit?edit[3]:r[0],priceDate:marketValue!==null?quotesAt:r[0],manual:!!edit,role:plan.roles[key]||'unassigned',note:marketValue!==null?'ราคา '+price+' '+r[2]+' · Yahoo · เวลาเรียก '+quotesAt+' (เวลาเสนอราคาจริงไม่ทราบ อาจล่าช้า) · จำนวนหุ้น ณ '+(edit?edit[3]:r[0]):'ราคา statement '+r[0]+' · ยังไม่มีราคาตลาดที่ตรวจสอบได้'});});
+    accounts.push({name:'Dime',value:null,cash:null,date:dimeDate,note:'รายการหุ้นคำนวณจากจำนวนใน statement หรือที่แก้ไขเอง × ราคาที่อ่านได้; ยอดบัญชีและเงินสดปัจจุบันยังไม่ยืนยัน'});
     if(webull?.success&&root.WebullView){
       const m=WebullView.model(webull),th=m.currency==='THB'&&m.currencies.length===1;
       accounts.push({name:'Webull',value:th?m.totals.totalAssets:null,cash:th?m.totals.cash:null,date:webull.fetchedAt||'—',note:m.complete?'อ่านจาก API; เวลาเรียกข้อมูลอาจต่างจากเวลาราคา':'ข้อมูลบางส่วน / สกุลเงินยังรวมไม่ได้'});
@@ -84,11 +87,12 @@
     const overlaps=Object.entries(grouping).filter(([,a])=>a.length>1);
     box.innerHTML=`<header class="pp-head"><div><span class="pp-eyebrow">MY PERSONAL PORTFOLIO</span><h2>พอร์ตของฉัน · ภาพรวมและแผนลงทุน</h2><p>กบข. ระยะยาว · Dime / Webull ระยะกลางและเก็งกำไร · จัดบทบาทแต่ละรายการก่อนเพิ่มความเสี่ยง</p></div><button id="pp-refresh" ${busy?'disabled':''}>${busy?'กำลังอ่านข้อมูล…':'อัปเดตข้อมูล'}</button></header>
       ${!data?'<p class="pp-alert">'+(loaded?'ยังอ่านฐานพอร์ตส่วนตัวไม่ได้ กรุณาลองอัปเดตข้อมูล':'กำลังเชื่อมฐานพอร์ตส่วนตัว…')+'</p>':''}
-      <div class="pp-total"><div><small>${allKnown?'มูลค่ารวมจากข้อมูลที่มี':'ยอดย่อยที่อ่านมูลค่าได้ (ยังไม่ใช่ยอดรวมทั้งหมด)'}</small><strong>${known.length?money(total):'ยังไม่ทราบ'}</strong><p>ข้อมูลต่างวัน ${known.length}/${model.accounts.length} บัญชี · Dime ใช้ FX ณ สิ้นเดือน · Folio รอตรวจยอดล่าสุด</p></div><div><small>กรอบขาดทุนที่คุณระบุ</small><strong>${hidden()?'••••':plan.maxLoss??'—'}%</strong><p>ระดับความเสี่ยงที่ยอมรับ ไม่ใช่เป้าขาดทุนหรือคำสั่ง Stop</p></div></div>
+      <div class="pp-total"><div><small>${allKnown?'มูลค่ารวมจากข้อมูลที่มี':'ยอดย่อยที่อ่านมูลค่าได้ (ยังไม่ใช่ยอดรวมทั้งหมด)'}</small><strong>${known.length?money(total):'ยังไม่ทราบ'}</strong><p>ข้อมูลต่างวัน ${known.length}/${model.accounts.length} บัญชี · Dime และ Folio รอตรวจยอดบัญชีล่าสุด</p></div><div><small>กรอบขาดทุนที่คุณระบุ</small><strong>${hidden()?'••••':plan.maxLoss??'—'}%</strong><p>ระดับความเสี่ยงที่ยอมรับ ไม่ใช่เป้าขาดทุนหรือคำสั่ง Stop</p></div></div>
       <div class="pp-accounts">${model.accounts.map(a=>`<article><h3>${a.name}</h3><strong>${money(a.value)}</strong><p>เงินสด ${money(a.cash)}</p><small>ข้อมูล ${date(a.date)}</small><p>${esc(a.note)}</p>${num(a.value)!==null&&total>0?`<div class="pp-bar"><span style="width:${100*a.value/total}%"></span></div><small>${hidden()?'••••':(100*a.value/total).toFixed(1)+'%'} ของยอดย่อยที่อ่านได้</small>`:''}</article>`).join('')}</div>
       <details open><summary>แผนส่วนตัวและสัดส่วนเป้าหมาย</summary><p class="pp-alert"><b>แผนร่างที่เสนอสำหรับเงินนอก กบข.:</b> ระยะกลาง 60% · เก็งกำไรระยะสั้น 25% · เงินสด 15% เพื่อแยกทุนลงทุนกับงบเทรดและเหลือเงินสำรอง ไม่ใช่สัดส่วนปัจจุบันหรือแผนที่ยืนยันแล้ว ต้องทบทวนตามระยะเวลา เงินเติม และยอดล่าสุดก่อนใช้จริง</p><div class="pp-fields">${field('years','ระยะเวลาพอร์ตระยะกลาง','ปี',0,80)}${field('monthly','เงินเติมพอร์ตส่วนตัว','บาท/เดือน')}${field('maxLoss','ขาดทุนชั่วคราวที่ยอมรับ','%',0,100)}${field('risk','งบเสี่ยงต่อรายการ','บาท')}${field('weekly','งบเสี่ยงต่อสัปดาห์','บาท')}${field('monthlyStop','ขาดทุนรายเดือนแล้วหยุดทบทวน','บาท')}</div>
       <p class="pp-note">คุณยืนยันรับความเสี่ยงสูงได้ 50%; ระยะเวลาและเงินเติมยังไม่กำหนด กฎ Folio เดิม 75–100 บาท/รายการ, 150 บาท/สัปดาห์, 400 บาท/เดือน ใช้เฉพาะ Folio จนกว่าจะกำหนดงบรวมใหม่</p>
       <h3>สัดส่วนเป้าหมายของพอร์ตทั้งหมด (%)</h3><div class="pp-fields">${['เกษียณ กบข.','ระยะกลาง','เก็งกำไรระยะสั้น','เงินสด'].map((s,i)=>`<label>${s}<input id="pp-target-${i}" type="number" min="0" max="100" step="any" placeholder="รอกำหนด" value="${plan.targets?.[i]??''}"></label>`).join('')}</div><p class="pp-note">เว้นว่างได้ หากกำหนดให้ครบต้องรวม 100% ระบบยังไม่แนะนำยอดซื้อขายเพื่อปรับสัดส่วนจนกว่าจะมียอดปัจจุบันครบ และจัดกลยุทธ์แต่ละรายการแล้ว</p><button id="pp-save">บันทึกแผนและกลยุทธ์ในบัญชี</button><p id="pp-feedback" role="status"></p></details>
+      <details open><summary>ค้นหาราคาหุ้น</summary><p class="pp-note">ใช้สัญลักษณ์หุ้นสหรัฐ หรือหุ้นและ DR ไทย เช่น AAPL, NVDA, PTT.BK, NVDA06.BK · ราคาอาจล่าช้า</p><div class="pp-fields"><label>สัญลักษณ์<input id="pp-quote-symbol" type="text" maxlength="24" placeholder="AAPL"></label></div><button id="pp-quote-search">ค้นหาราคา</button><p id="pp-quote-result" role="status">${lookup?esc(lookup):""}</p></details>
       <details open><summary>รายการถือครองและบทบาทในพอร์ต (${model.positions.length})</summary><p class="pp-note">ชื่อเดียวกันต่างโบรกเกอร์ยังเป็นคนละสถานะ ตรวจยอดและวันที่ก่อนนำมารวม · สถานะจาก statement ไม่ยืนยันว่าถืออยู่วันนี้</p>${hidden()?'<p>ซ่อนรายการตามโหมดความเป็นส่วนตัว</p>':`<div class="pp-scroll"><table><thead><tr><th>บัญชี / สัญลักษณ์</th><th>กลยุทธ์</th><th>จำนวน</th><th>มูลค่า / สกุลเงิน</th><th>วันที่ข้อมูล</th><th>การดำเนินการ</th></tr></thead><tbody>${model.positions.map(p=>`<tr><td><strong>${esc(p.symbol)}</strong><small>${esc(p.broker)}</small></td><td>${p.role==='retirement'?'เกษียณระยะยาว':`<select aria-label="กลยุทธ์ ${esc(p.broker+' '+p.symbol)}" data-position="${esc(p.key)}">${['unassigned','medium','swing'].map(r=>`<option value="${r}" ${p.role===r?'selected':''}>${roleName[r]}</option>`).join('')}</select>`}</td><td>${(p.quantity==null?'—':GpfNumbers.fixed(p.quantity))}</td><td>${money(p.value,p.currency||'THB')}</td><td>${date(p.date)}</td><td>${p.broker==='Dime'?'<button type="button" data-dime-edit="'+esc(p.key)+'">แก้จำนวนหุ้น</button>':p.role==='retirement'?'ทบทวนแผนและสัดส่วนตามรอบ':'รอตรวจราคาปัจจุบัน / แผนออก'}${p.note?'<small>'+esc(p.note)+'</small>':''}</td></tr>`).join('')}</tbody></table></div>`}</details>
       <details open><summary>ความเสี่ยงจากสินทรัพย์ซ้ำ</summary>${hidden()?'<p>ซ่อนรายการตามโหมดความเป็นส่วนตัว</p>':overlaps.length?overlaps.map(([k,a])=>`<p><b>${esc(k)}</b> · ${a.map(p=>esc(p.broker+' / '+p.symbol)).join(' · ')}</p>`).join(''):'<p>ยังไม่พบรายการซ้ำจากข้อมูลที่อ่านได้</p>'}<p class="pp-note">ตรวจชื่อหุ้นและธีมพื้นฐานที่รู้จักเท่านั้น ยังไม่รวมสัดส่วนหุ้นภายใน ETF / กองทุน กบข. และ DR แต่ละตัวอาจมีอัตราแปลงต่างกัน จึงไม่บวกจำนวนหุ้นตรง ๆ</p></details>
       <details open><summary>แผนซื้อ · ถือ · ลด / ออก</summary><div class="pp-strategies"><article><h3>กบข. / ระยะยาว</h3><p>ทบทวนสัดส่วนทุกไตรมาส หรือเมื่อเป้าหมายชีวิตเปลี่ยน ใช้เงินนำส่งช่วยปรับสัดส่วน ตรวจสินทรัพย์ภายในแผนก่อนเปลี่ยนกองทุน</p></article><article><h3>ระยะกลาง</h3><p>ระบุเหตุผลลงทุน กรอบเวลา และเงื่อนไขที่ทำให้เหตุผลเปลี่ยน ทบทวนหลังงบและเหตุการณ์สำคัญ ตรวจว่าหุ้นตรงกับ DR / ETF ที่ถือซ้ำหรือไม่</p></article><article><h3>เก็งกำไรระยะสั้น</h3><p>ก่อนซื้อกำหนดราคาซื้อ จุดหยุดทบทวน เป้ากำไร และขนาดสถานะ รวมค่าธรรมเนียม งดเพิ่มสถานะเมื่อใช้งบเสี่ยงครบ</p></article></div><p>แผนเริ่มต้นที่เสนอ: แยกเงิน กบข. ออกจากงบเก็งกำไร จัดกลยุทธ์ Dime / Webull ให้ครบ แล้วกำหนดงบเสี่ยงรวมทั้งสองบัญชี โดยนับหุ้นและ DR ที่อ้างอิงบริษัทเดียวกันเป็นความเสี่ยงกลุ่มเดียว</p><p>${hidden()?'':num(plan.maxLoss)>0&&num(plan.maxLoss)<100?'หากพอร์ตลดลง '+plan.maxLoss+'% ต้องได้ผลตอบแทน '+(100/(1-plan.maxLoss/100)-100).toFixed(1)+'% จากยอดที่เหลือจึงกลับทุนเดิม':''}</p><p class="pp-alert">ขณะนี้ยังไม่มีราคา Bid/Ask พร้อมเวลาของทุกสถานะ จึงยังไม่ออกสัญญาณ BUY อัตโนมัติ การถึง Stop / เป้าเป็นสัญญาณให้ทบทวน ไม่ใช่หลักฐานการขายสำเร็จ</p>
@@ -98,9 +102,19 @@
   }
   async function load(force=false){
     if(!isMithongSession()||busy)return;const ticket=epoch;busy=true;render();
-    try{const r=await callBackend('getPersonalPortfolio');if(ticket!==epoch||!isMithongSession())return;if(!r?.success)throw Error(r?.message||'ยังอ่านฐานไม่ได้');data=r;loaded=true;if(r.plan)plan={...plan,...r.plan,roles:r.plan.roles||{}};}
+    try{const r=await callBackend('getPersonalPortfolio');if(ticket!==epoch||!isMithongSession())return;if(!r?.success)throw Error(r?.message||'ยังอ่านฐานไม่ได้');data=r;loaded=true;if(r.plan)plan={...plan,...r.plan,roles:r.plan.roles||{}};await loadDimeQuotes(ticket);}
     catch(e){if(ticket===epoch){loaded=true;data=null;}}
     finally{if(ticket===epoch){busy=false;render();}}
+  }
+  async function loadDimeQuotes(ticket){
+    const symbols=[...new Set(rows(data?.dime).map(r=>quoteSymbol(r[3],r[2])).filter(Boolean))];
+    quotes={};quotesAt=null;if(!symbols.length)return;
+    try{const res=await callBackend('fetchMarketData',{symbols});if(ticket!==epoch||!isMithongSession())return;if(res?.status!=='success'||!res.data)throw Error('ไม่สามารถโหลดราคาได้');quotes=res.data;quotesAt=res.fetchedAt||new Date().toISOString();quoteState='อ่านราคาบางส่วนหรือทั้งหมดแล้ว';}catch(e){if(ticket===epoch){quotes={};quoteState='ยังโหลดราคาไม่ได้';}}
+  }
+  async function lookupQuote(){
+    const field=document.getElementById('pp-quote-symbol'),out=document.getElementById('pp-quote-result'),symbol=String(field?.value||'').trim().toUpperCase(),ticket=epoch;
+    if(!/^[A-Z0-9.-]{1,24}$/.test(symbol)){out.textContent='กรอกชื่อย่อหุ้น เช่น AAPL หรือ PTT.BK';return;}
+    out.textContent='กำลังอ่านราคา…';try{const r=await callBackend('fetchMarketData',{symbols:[symbol]});if(ticket!==epoch||!isMithongSession())return;const q=r?.data?.[symbol],price=num(q?.price);if(!(price>0))throw Error('ไม่พบราคา');lookup=symbol+' · '+price+' '+(symbol.endsWith('.BK')?'THB':'USD')+' · Yahoo · เวลาเรียก '+(r.fetchedAt||new Date().toISOString())+' · เวลาเสนอราคาจริงไม่ทราบ ราคาอาจล่าช้า';out.textContent=lookup;}catch(e){lookup='ยังไม่พบราคาสำหรับ '+symbol;out.textContent=lookup;}
   }
   async function save(){
     const ticket=epoch,button=document.getElementById('pp-save'),msg=document.getElementById('pp-feedback');button.disabled=true;
@@ -121,7 +135,7 @@
     const q=num(document.getElementById('pp-dime-quantity').value),day=document.getElementById('pp-dime-date').value,msg=document.getElementById('pp-dime-feedback'),button=document.getElementById('pp-dime-save');
     if(q===null||q<0||q>1e12||!day){msg.textContent='กรอกจำนวนตั้งแต่ 0 และวันที่ยืนยัน';return;}
     const ticket=epoch;button.disabled=true;msg.textContent='กำลังบันทึก…';
-    try{const r=await callBackend('saveDimeQuantity',{key:form.dataset.key,quantity:q,asOf:day,expectedQuantity:Number(form.dataset.expected)});if(ticket!==epoch||!isMithongSession())return;if(!r.success)throw Error(r.message||'บันทึกไม่สำเร็จ');await load(true);const box=mount(),notice=document.createElement('p');notice.className='pp-alert';notice.setAttribute('role','status');notice.textContent='บันทึกจำนวนหุ้น Dime แล้ว · มูลค่าใช้ราคา statement เดิม เงินสดและยอดรวมรอยืนยัน';(document.getElementById('page-personal')&&!document.getElementById('page-personal').classList.contains('hidden')?document.getElementById('personal-details'):box).prepend(notice);}
+    try{const r=await callBackend('saveDimeQuantity',{key:form.dataset.key,quantity:q,asOf:day,expectedQuantity:Number(form.dataset.expected)});if(ticket!==epoch||!isMithongSession())return;if(!r.success)throw Error(r.message||'บันทึกไม่สำเร็จ');await load(true);const box=mount(),notice=document.createElement('p');notice.className='pp-alert';notice.setAttribute('role','status');notice.textContent='บันทึกจำนวนหุ้น Dime แล้ว · ตรวจแหล่งราคาและวันที่ราคาในแต่ละรายการ เงินสดและยอดรวมรอยืนยัน';(document.getElementById('page-personal')&&!document.getElementById('page-personal').classList.contains('hidden')?document.getElementById('personal-details'):box).prepend(notice);}
     catch(e){if(ticket===epoch){msg.textContent=e.message||'บันทึกไม่สำเร็จ';button.disabled=false;}}
   }
   function calculate(){
@@ -138,5 +152,5 @@
   const originalPrivacy=root.togglePrivacy;
   root.togglePrivacy=function(){const ret=originalPrivacy.apply(this,arguments);if(isMithongSession())render();return ret;};
   const originalLogout=root.logout;
-  root.logout=function(){epoch++;nav=data=webull=null;busy=loaded=false;plan={maxLoss:50,targets:[],roles:{}};document.getElementById('personal-portfolio')?.remove();return originalLogout.apply(this,arguments);};
+  root.logout=function(){epoch++;nav=data=webull=null;quotes={};quotesAt=null;quoteState="";lookup=null;busy=loaded=false;plan={maxLoss:50,targets:[],roles:{}};document.getElementById('personal-portfolio')?.remove();return originalLogout.apply(this,arguments);};
 })(typeof window!=='undefined'?window:globalThis);
