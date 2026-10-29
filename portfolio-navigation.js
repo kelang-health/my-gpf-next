@@ -1,7 +1,7 @@
 (function(){
  'use strict';
  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- let snapshot=null,stockTab='gpf',watch=[],personalFilter='all';
+ let snapshot=null,stockTab='gpf',watch=[],personalFilter='all',quoteRequest=0;
  const privateMode=()=>typeof isMasked!=='undefined'&&isMasked;
  const amount=(n,c='THB')=>privateMode()?'••••':n===null||n===undefined?'ยังไม่ทราบ':new Intl.NumberFormat('th-TH',{style:'currency',currency:c,maximumFractionDigits:2}).format(n);
  function personalPage(){
@@ -17,9 +17,21 @@
   const page=document.getElementById('page-thaistock');if(!page||document.getElementById('stock-gpf'))return;
   const gpf=document.createElement('div');gpf.id='stock-gpf';gpf.className='space-y-6';while(page.firstChild)gpf.append(page.firstChild);
   const head=document.createElement('section');head.className='pastel-card pp';head.innerHTML='<h2>ข้อมูลหุ้นและหลักทรัพย์</h2><p>สำรวจหุ้นใน กบข. ตรวจหลักทรัพย์ที่ถือ หรือสร้างรายการเฝ้าติดตามของคุณ</p><div class="stock-tabs" role="tablist" aria-label="หมวดข้อมูลหุ้น"><button role="tab" data-stock-tab="gpf">หุ้น กบข.</button><button role="tab" data-stock-tab="owned">หุ้นที่ถือ</button><button role="tab" data-stock-tab="watch">หุ้นเฝ้าติดตาม</button></div>';
+  const quote=document.createElement('section');quote.className='pastel-card pp';
+  quote.innerHTML='<h3>ค้นหาราคาหุ้น</h3><p class="pp-note">หุ้นสหรัฐ เช่น AAPL, NVDA · หุ้นและ DR ไทยใส่ .BK เช่น PTT.BK · ราคาอาจล่าช้า</p><form id="shared-quote-form"><div class="pp-fields"><label>สัญลักษณ์หลักทรัพย์<input id="shared-quote-symbol" maxlength="24" required placeholder="AAPL"></label></div><button type="submit">ค้นหาราคา</button></form><p id="shared-quote-result" role="status"></p>';
+  quote.addEventListener('submit',async e=>{
+   e.preventDefault();const symbol=quote.querySelector('#shared-quote-symbol').value.trim().toUpperCase(),out=quote.querySelector('#shared-quote-result'),token=sessionToken,request=++quoteRequest;
+   if(!/^[A-Z0-9.-]{1,24}$/.test(symbol)){out.textContent='กรอกชื่อย่อหุ้น เช่น AAPL หรือ PTT.BK';return;}
+   if(!token){out.textContent='กรุณาเข้าสู่ระบบก่อนค้นหาราคา';return;}
+   out.textContent='กำลังอ่านราคา…';
+   try{const result=await callBackend('fetchMarketData',{symbols:[symbol]});if(token!==sessionToken||request!==quoteRequest)return;const q=result?.data?.[symbol],price=Number(q?.price);if(!(price>0))throw Error('ไม่พบราคา');
+    const time=value=>{const t=Date.parse(value);return Number.isFinite(t)?new Intl.DateTimeFormat('th-TH',{timeZone:'Asia/Bangkok',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(new Date(t))+' น. (เวลาไทย)':'ไม่ทราบ';};
+    const source=q.source==='webull'?'Webull':q.source==='yahoo'?'Yahoo':'ไม่ทราบแหล่งราคา';out.textContent=symbol+' · '+price+' '+(symbol.endsWith('.BK')?'THB':'USD')+' · '+source+' · เวลาเรียก '+time(result.fetchedAt)+' · เวลาราคา '+time(q.quoteTime)+' · ราคาอาจล่าช้า';
+   }catch(error){if(token===sessionToken&&request===quoteRequest)out.textContent='ยังไม่พบราคาสำหรับ '+symbol+' หรือไม่สามารถเชื่อมต่อได้';}
+  });
   const owned=document.createElement('section');owned.id='stock-owned';owned.className='hidden pastel-card pp';
   const tracked=document.createElement('section');tracked.id='stock-watch';tracked.className='hidden pastel-card pp';
-  page.append(head,gpf,owned,tracked);
+  page.append(head,quote,gpf,owned,tracked);
   head.addEventListener('click',e=>{if(e.target.dataset.stockTab)selectStocks(e.target.dataset.stockTab);});
   tracked.addEventListener('submit',e=>{if(e.target.id!=='watch-form')return;e.preventDefault();
    const symbol=document.getElementById('watch-symbol').value.trim().toUpperCase(),market=document.getElementById('watch-market').value,note=document.getElementById('watch-note').value.trim().slice(0,240);
@@ -60,5 +72,5 @@
  personalPage();stockSetup();
  const oldSwitch=window.switchPage;window.switchPage=function(id,el){personalPage();const result=oldSwitch.apply(this,arguments);const titles={portfolio:'📈 ภาพรวมทุกพอร์ต',personal:'💼 พอร์ตส่วนตัว · ระยะสั้น–กลาง',thaistock:'📊 ข้อมูลหุ้นและหลักทรัพย์'};if(titles[id])document.getElementById('main_title').textContent=titles[id];if(id==='thaistock')selectStocks(stockTab);if(id==='personal'||id==='thaistock')renderStocks();window.scrollTo({top:0,behavior:'auto'});return result;};
  document.addEventListener('personalportfolio:render',e=>organize(e.detail));
- const oldLogout=window.logout;window.logout=function(){snapshot=null;watch=[];document.getElementById('personal-details')?.replaceChildren();document.getElementById('personal-intro').innerHTML='<h2>พอร์ตส่วนตัว</h2><p>เข้าสู่ระบบเพื่อดูพอร์ตของคุณ</p>';const ret=oldLogout.apply(this,arguments);renderStocks();return ret;};
+ const oldLogout=window.logout;window.logout=function(){snapshot=null;watch=[];quoteRequest++;const q=document.getElementById('shared-quote-result');if(q)q.textContent='';const input=document.getElementById('shared-quote-symbol');if(input)input.value='';document.getElementById('personal-details')?.replaceChildren();document.getElementById('personal-intro').innerHTML='<h2>พอร์ตส่วนตัว</h2><p>เข้าสู่ระบบเพื่อดูพอร์ตของคุณ</p>';const ret=oldLogout.apply(this,arguments);renderStocks();return ret;};
 })();
