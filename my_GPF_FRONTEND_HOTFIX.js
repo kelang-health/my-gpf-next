@@ -412,7 +412,7 @@ async function fetchGpfHoldingsPrices(category = currentHoldingsCategory) {
         const providerSummary = [
           sourceCounts.webull ? `WEBULL ${sourceCounts.webull}` : '',
           sourceCounts.yahoo ? `YAHOO ${sourceCounts.yahoo}` : ''
-        ].filter(Boolean).join(' · ') || `LIVE ${liveCount}`;
+        ].filter(Boolean).join(' · ') || `ราคาอ้างอิง ${liveCount} รายการ`;
         timeEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1 text-emerald-500"></i> ${providerSummary} · ${holdingsLastUpdatedTime.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.`;
       } else {
         timeEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1 text-amber-500"></i> ใช้ราคาสำรอง · Webull/Yahoo ยังไม่ตอบ';
@@ -464,7 +464,7 @@ async function refreshHoldingsData() {
         const providerSummary = [
           sourceCounts.webull ? `WEBULL ${sourceCounts.webull}` : '',
           sourceCounts.yahoo ? `YAHOO ${sourceCounts.yahoo}` : ''
-        ].filter(Boolean).join(' · ') || `LIVE ${liveCount}`;
+        ].filter(Boolean).join(' · ') || `ราคาอ้างอิง ${liveCount} รายการ`;
         timeEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1 text-emerald-500"></i> ${providerSummary} · ${holdingsLastUpdatedTime.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.`;
       } else {
         timeEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1 text-amber-500"></i> ใช้ราคาสำรอง · Webull/Yahoo ยังไม่ตอบ';
@@ -475,7 +475,7 @@ async function refreshHoldingsData() {
 
     Swal.fire({
       icon: liveCount > 0 ? 'success' : 'warning',
-      title: liveCount > 0 ? `อัปเดตราคาสด ${liveCount}/${symbols.length} รายการ` : 'ยังดึงราคาสดไม่ได้',
+      title: liveCount > 0 ? `อัปเดตราคาอ้างอิง ${liveCount}/${symbols.length} รายการ` : 'ยังดึงราคาอ้างอิงไม่ได้',
       text: liveCount > 0
         ? `Webull ${sourceCounts.webull || 0} · Yahoo ${sourceCounts.yahoo || 0} รายการ`
         : 'ระบบยังแสดงราคาสำรองเพื่อไม่ให้ตารางว่าง',
