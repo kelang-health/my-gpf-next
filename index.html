@@ -471,12 +471,12 @@
         <div id="page-daily" class="hidden space-y-6">
           <div class="pastel-card p-6 text-center bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-amber-200">
             <h3 class="text-xs font-bold text-amber-800 mb-1">ผลกำไรส่วนต่างประจำงวดวัน (เปรียบเทียบจากราคาเมื่อวาน)</h3>
-            <div id="daily_change_money" class="text-3xl font-extrabold text-amber-950 my-1">0.00 ฿</div>
-            <div id="daily_change_pct" class="inline-block text-xs font-bold bg-white/80 text-amber-900 px-3 py-1 rounded-full border border-amber-300 shadow-sm">0.00%</div>
+            <div id="daily_change_money" class="text-3xl font-extrabold text-amber-950 my-1">ยังไม่มีข้อมูลเปรียบเทียบ</div>
+            <div id="daily_change_pct" class="inline-block text-xs font-bold bg-white/80 text-amber-900 px-3 py-1 rounded-full border border-amber-300 shadow-sm">—</div>
           </div>
 
           <div class="pastel-card p-5">
-            <div id="daily_chart_div" class="h-[280px] w-full"></div>
+            <div id="daily_chart_div" class="h-[280px] w-full">ต้องมี NAV อย่างน้อย 2 วันเพื่อแสดงกราฟรายวัน</div>
           </div>
 
           <div class="pastel-card p-5">
@@ -1607,7 +1607,7 @@
         }
 
         if(pageId === 'portfolio' && ytdData.length > 0) updateDashboard();
-        if(pageId === 'daily' && dailyRecords.length > 0) drawDailyDashboard();
+        if(pageId === 'daily') drawDailyDashboard();
         if(pageId === 'thaistock') {
           switchMarketSubTab('holdings');
           if(globalIndicesData.length === 0) fetchGlobalMarketIndices();
@@ -1710,6 +1710,10 @@
         if(document.getElementById('kpi_baseline_money')) document.getElementById('kpi_baseline_money').innerText = maskValue(yearlyBaselineSum);
         if(document.getElementById('kpi_contrib_money')) document.getElementById('kpi_contrib_money').innerText = maskValue(totalContributionSum);
 
+        if(dailyRecords.length === 0) {
+            document.getElementById('daily_change_money').innerText = 'ยังไม่มีข้อมูลเปรียบเทียบ';
+            document.getElementById('daily_change_pct').innerText = '—';
+        }
         if(dailyRecords.length > 0) {
             var latestDay = dailyRecords[dailyRecords.length - 1];
             var sign = latestDay.diff >= 0 ? '+' : '';
@@ -2334,7 +2338,11 @@
       }
 
       function drawDailyDashboard() {
-        if(dailyRecords.length === 0) return;
+        if(dailyRecords.length === 0) {
+          document.getElementById('daily_chart_div').textContent = 'ต้องมี NAV อย่างน้อย 2 วันเพื่อแสดงกราฟรายวัน';
+          document.getElementById('daily_table_div').textContent = 'ยังไม่มีข้อมูลเพียงพอสำหรับเปรียบเทียบ';
+          return;
+        }
         var recentRecords = dailyRecords.slice(-20);
         var dt = new google.visualization.DataTable();
         dt.addColumn('string', 'วันที่'); dt.addColumn('number', 'เปลี่ยน (บาท)'); dt.addColumn({type: 'string', role: 'style'}); dt.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
