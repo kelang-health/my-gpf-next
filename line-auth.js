@@ -9,6 +9,8 @@
   };
   const base = new URL('./', location.href);
   base.search = '?line=1'; base.hash = '';
+  const quickView = window.GpfQuickMenu?.fromUrl(location.search);
+  if (quickView) base.searchParams.set('view', quickView);
   function button(text, action) {
     const b = document.createElement('button'); b.type = 'button'; b.textContent = text;
     b.className = 'gpf-line-button'; b.addEventListener('click', action); return b;
