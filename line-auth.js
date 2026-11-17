@@ -50,7 +50,7 @@
     byId('password').value = ''; byId('login-msg').textContent = '';
     byId('login-page').classList.add('hidden'); byId('main-app').classList.remove('hidden');
     byId('btnAdminPanel')?.classList.toggle('hidden', result.user?.role !== 'admin');
-    message('เข้าสู่ระบบด้วย LINE แล้ว');
+    message('');
     await fetchData();
     if (sessionToken && currentUser && typeof initGpfHoldingsDashboard === 'function') initGpfHoldingsDashboard();
   }
@@ -83,7 +83,7 @@
     try {result = await callBackend('lineLink', {idToken, challenge:proof.challenge, confirm:true, password});}
     finally {password = '';}
     if (!result.success) throw new Error(result.message || 'ผูกบัญชีไม่สำเร็จ');
-    message('ผูกบัญชีแล้ว ครั้งต่อไปเปิดผ่านริชเมนูเพื่อดูพอร์ตของคุณ'); await refresh();
+    message(''); await refresh();
   }
   async function unlink() {
     const expected = sessionToken;
@@ -102,12 +102,15 @@
     const status = await callBackend('lineLinkStatus');
     if (expected !== sessionToken) return;
     if (!status.success) {message(status.message || 'ตรวจสถานะการผูกไม่สำเร็จ'); return;}
+    container.dataset.linked = String(status.linked);
+    if (status.linked) byId('gpf-line-account-message').textContent = '';
     const text = document.createElement('span'); text.textContent = status.linked ? 'ผูก LINE แล้ว' : 'ยังไม่ได้ผูก LINE';
     container.append(text, button(status.linked ? 'ยกเลิกการผูก LINE' : 'ผูกบัญชี LINE', () => guarded(status.linked ? unlink : link)));
   }
   async function init() {
     const style = document.createElement('style');
     style.textContent = '.gpf-line-button{background:#07883e;color:white;border:0;border-radius:12px;padding:12px 18px;margin:8px;font:inherit;cursor:pointer}.gpf-line-button:disabled{opacity:.5;cursor:wait}#gpf-line-message{font-size:14px;padding:8px;text-align:center}#gpf-line-account{display:flex;align-items:center;flex-wrap:wrap;justify-content:center}dialog{border:1px solid #ddd;border-radius:16px;padding:24px;max-width:90vw}dialog::backdrop{background:#0008}dialog label,dialog input{display:block}dialog input{border:1px solid #999;padding:10px;margin:10px 0}';
+    style.textContent += "#main-app #gpf-line-account{gap:6px;padding:4px 12px;font-size:12px;line-height:1.4;min-height:36px}#main-app #gpf-line-account:empty,#gpf-line-account-message:empty,#gpf-line-message:empty{display:none}#main-app #gpf-line-account[data-linked=\"true\"]{color:#477064}#main-app #gpf-line-account[data-linked=\"true\"] .gpf-line-button{font-size:11px!important;font-weight:400!important;line-height:1.3!important;padding:4px 8px!important;margin:0!important;min-height:30px!important;min-width:0!important;width:auto!important;border:1px solid #cbd5e1!important;border-radius:8px!important;background:transparent!important;color:#64748b!important;box-shadow:none!important}#gpf-line-account-message{font-size:12px;padding:4px 12px;margin:0;color:#9a3412}";
     document.head.append(style);
     const loginBox = document.createElement('div'); loginBox.id = 'gpf-line-login';
     const msg = document.createElement('p'); msg.id = 'gpf-line-message'; msg.setAttribute('role','status');
