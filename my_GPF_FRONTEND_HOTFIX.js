@@ -177,7 +177,7 @@ async function loadPersonalWebullPortfolio(forceRefresh = false) {
 
 async function callBackend(action, params = {}) {
   const expectedToken=sessionToken;
-  const publicActions=['login','loginUser','getPublicConfig','healthCheck','getThaiStockData','getGoldData'];
+  const publicActions=['login','loginUser','lineLogin','getLineAuthConfig','getPublicConfig','healthCheck','getThaiStockData','getGoldData'];
   if(!expectedToken&&!publicActions.includes(action)){
     const error=new Error('กรุณาเข้าสู่ระบบก่อนเรียกข้อมูลส่วนตัว');
     error.code='AUTH_REQUIRED';
