@@ -2866,71 +2866,59 @@
       const GPF_35_HOLDINGS_CONFIG = {
         thai: {
           title: 'ตราสารทุนไทย (Thai Equities)',
-          badge: 'สัดส่วน 10 อันดับแรกคิดเป็น 61.96% ของพอร์ตหุ้นไทย',
+          badge: 'ข้อมูล ณ 30 ก.ย. 2569',
           flag: '🇹🇭',
           desc: '10 หลักทรัพย์แรกที่กองทุน กบข. ถือครองมากที่สุดในตลาดหลักทรัพย์แห่งประเทศไทย (SET)',
-          proNotes: [
-            '<b>Core Driving Engine:</b> 10 หุ้นชุดนี้คุมทิศทางผลตอบแทนของ <b>"แผนหุ้นไทย"</b> และส่งผลอย่างยิ่งต่อ <b>"แผนสมดุลตามอายุ"</b> และ <b>"แผนผสมหุ้นทวี"</b>',
-            '<b>Sector Concentration:</b> เน้นน้ำหนักในกลุ่มอิเล็กทรอนิกส์ส่งออก (DELTA 8.60%), ธนาคารพาณิชย์ขนาดใหญ่ (KBANK, KTB, BBL, SCB รวมกันสูงถึง ~26.44%), สื่อสาร (ADVANC 7.49%) และพลังงานสาธารณูปโภค (PTT, GULF, PTTEP รวม ~15.52%)',
-            '<b>กลยุทธ์การสับเปลี่ยน:</b> หากกลุ่มแบงก์และ DELTA มีโมเมนตัมเป็นบวกพร้อมกัน จะหนุนให้ NAV แผนหุ้นไทยพุ่งทะลุแนวต้านได้ดีเยี่ยม'
-          ],
+          proNotes: ['สัดส่วนเทียบกับมูลค่าหุ้นในกลุ่มนี้ของกองทุนส่วนสมาชิก'],
           items: [
-            { rank: 1, name: 'DELTA', fullName: 'Delta Electronics (Thailand)', symbol: 'DELTA.BK', weight: 8.60, defaultPrice: 156.50, defaultChange: 2.50, defaultPct: 1.62 },
-            { rank: 2, name: 'KBANK', fullName: 'Kasikornbank', symbol: 'KBANK.BK', weight: 8.32, defaultPrice: 154.50, defaultChange: 1.00, defaultPct: 0.65 },
-            { rank: 3, name: 'ADVANC', fullName: 'Advanced Info Service', symbol: 'ADVANC.BK', weight: 7.49, defaultPrice: 282.00, defaultChange: 3.00, defaultPct: 1.08 },
-            { rank: 4, name: 'KTB', fullName: 'Krungthai Bank', symbol: 'KTB.BK', weight: 6.77, defaultPrice: 21.30, defaultChange: 0.20, defaultPct: 0.95 },
-            { rank: 5, name: 'PTT', fullName: 'PTT Public Company', symbol: 'PTT.BK', weight: 6.47, defaultPrice: 32.75, defaultChange: -0.25, defaultPct: -0.76 },
-            { rank: 6, name: 'GULF', fullName: 'Gulf Development Public', symbol: 'GULF.BK', weight: 6.41, defaultPrice: 62.50, defaultChange: 0.50, defaultPct: 0.81 },
-            { rank: 7, name: 'BBL', fullName: 'Bangkok Bank', symbol: 'BBL.BK', weight: 5.81, defaultPrice: 156.50, defaultChange: 0.50, defaultPct: 0.32 },
-            { rank: 8, name: 'SCB', fullName: 'SCB X Public Company', symbol: 'SCB.BK', weight: 5.54, defaultPrice: 114.00, defaultChange: 0.00, defaultPct: 0.00 },
-            { rank: 9, name: 'CPN', fullName: 'Central Pattana', symbol: 'CPN.BK', weight: 3.91, defaultPrice: 65.25, defaultChange: -0.50, defaultPct: -0.76 },
-            { rank: 10, name: 'PTTEP', fullName: 'PTT Exploration and Production', symbol: 'PTTEP.BK', weight: 2.64, defaultPrice: 130.50, defaultChange: -1.00, defaultPct: -0.76 }
+            {"rank":1,"name":"DELTA","fullName":"Delta Electronics (Thailand)","symbol":"DELTA.BK","weight":10.5},
+            {"rank":2,"name":"KBANK","fullName":"Kasikornbank","symbol":"KBANK.BK","weight":8.9},
+            {"rank":3,"name":"KTB","fullName":"Krungthai Bank","symbol":"KTB.BK","weight":7.34},
+            {"rank":4,"name":"PTT","fullName":"PTT Public Company","symbol":"PTT.BK","weight":7.19},
+            {"rank":5,"name":"GULF","fullName":"Gulf Development Public","symbol":"GULF.BK","weight":6.91},
+            {"rank":6,"name":"SCB","fullName":"SCB X Public Company","symbol":"SCB.BK","weight":5.16},
+            {"rank":7,"name":"BDMS","fullName":"Bangkok Dusit Medical Services","symbol":"BDMS.BK","weight":4.22},
+            {"rank":8,"name":"ADVANC","fullName":"Advanced Info Service","symbol":"ADVANC.BK","weight":3.91},
+            {"rank":9,"name":"CPN","fullName":"Central Pattana","symbol":"CPN.BK","weight":3.74},
+            {"rank":10,"name":"KKP","fullName":"Kiatnakin Phatra Bank","symbol":"KKP.BK","weight":3.63}
           ]
         },
         developed: {
           title: 'ตราสารทุนตลาดพัฒนาแล้ว (Developed Markets)',
-          badge: 'สัดส่วน 10 อันดับแรกคิดเป็น 26.79% ของพอร์ตหุ้นตลาดพัฒนาแล้ว',
+          badge: 'ข้อมูล ณ 30 ก.ย. 2569',
           flag: '🇺🇸',
           desc: '10 หุ้นผู้นำระดับโลก (Global Megacap Leaders) ที่เป็นสินทรัพย์ขับเคลื่อนหลักใน "แผนหุ้นต่างประเทศ"',
-          proNotes: [
-            '<b>US Tech Dominance:</b> พอร์ตตลาดพัฒนาแล้วของ กบข. อิงตามดัชนี MSCI World และ S&P 500 โดยมีหุ้นกลุ่ม Big Tech สหรัฐฯ (Alphabet, Nvidia, Amazon, Microsoft, Apple, Meta, Broadcom) รวมกันเกินกว่า 23% ของพอร์ตส่วนนี้',
-            '<b>AI & Semiconductor Theme:</b> มีสัดส่วนบริษัทชิปและเทคโนโลยีปัญญาประดิษฐ์ระดับโลกสูงมาก เช่น NVDA (4.28%), AVGO (1.69%), AMAT (1.39%)',
-            '<b>Currency Impact (USD/THB):</b> ผลตอบแทนในรูปเงินบาทจะได้รับแรงหนุน 2 ต่อ เมื่อหุ้นเทคโนโลยีสหรัฐฯ ปรับขึ้น และค่าเงินดอลลาร์แข็งค่าเทียบกับบาท'
-          ],
+          proNotes: ['สัดส่วนเทียบกับมูลค่าหุ้นในกลุ่มนี้ของกองทุนส่วนสมาชิก รวมการถือครองผ่านกองทุนรวมและ ETF แบบ Look Through'],
           items: [
-            { rank: 1, name: 'Alphabet', fullName: 'Alphabet Inc. (Class A)', symbol: 'GOOGL', weight: 5.00, defaultPrice: 178.20, defaultChange: 2.15, defaultPct: 1.22 },
-            { rank: 2, name: 'NVIDIA', fullName: 'NVIDIA Corporation', symbol: 'NVDA', weight: 4.28, defaultPrice: 124.50, defaultChange: 3.40, defaultPct: 2.81 },
-            { rank: 3, name: 'Amazon', fullName: 'Amazon.com Inc.', symbol: 'AMZN', weight: 3.43, defaultPrice: 194.80, defaultChange: 1.90, defaultPct: 0.98 },
-            { rank: 4, name: 'Microsoft', fullName: 'Microsoft Corporation', symbol: 'MSFT', weight: 3.42, defaultPrice: 432.10, defaultChange: -1.20, defaultPct: -0.28 },
-            { rank: 5, name: 'Apple', fullName: 'Apple Inc.', symbol: 'AAPL', weight: 2.99, defaultPrice: 228.40, defaultChange: 1.50, defaultPct: 0.66 },
-            { rank: 6, name: 'Meta Platforms', fullName: 'Meta Platforms Inc.', symbol: 'META', weight: 2.43, defaultPrice: 535.60, defaultChange: 4.80, defaultPct: 0.90 },
-            { rank: 7, name: 'Broadcom', fullName: 'Broadcom Inc.', symbol: 'AVGO', weight: 1.69, defaultPrice: 168.90, defaultChange: 2.70, defaultPct: 1.62 },
-            { rank: 8, name: 'Applied Materials', fullName: 'Applied Materials Inc.', symbol: 'AMAT', weight: 1.39, defaultPrice: 202.40, defaultChange: -2.10, defaultPct: -1.03 },
-            { rank: 9, name: 'Roche Holding', fullName: 'Roche Holding AG (Switzerland)', symbol: 'ROG.SW', weight: 1.08, defaultPrice: 268.00, defaultChange: 1.40, defaultPct: 0.53 },
-            { rank: 10, name: 'Visa', fullName: 'Visa Inc. (Class A)', symbol: 'V', weight: 1.08, defaultPrice: 279.30, defaultChange: 0.80, defaultPct: 0.29 }
+            {"rank":1,"name":"NVIDIA","fullName":"NVIDIA Corporation","symbol":"NVDA","weight":5.28},
+            {"rank":2,"name":"Microsoft","fullName":"Microsoft Corporation","symbol":"MSFT","weight":4.79},
+            {"rank":3,"name":"Alphabet","fullName":"Alphabet Inc.","symbol":"GOOGL","weight":4.77},
+            {"rank":4,"name":"Apple","fullName":"Apple Inc.","symbol":"AAPL","weight":3.46},
+            {"rank":5,"name":"Amazon","fullName":"Amazon.com Inc.","symbol":"AMZN","weight":3.42},
+            {"rank":6,"name":"Meta Platforms","fullName":"Meta Platforms Inc.","symbol":"META","weight":3.04},
+            {"rank":7,"name":"Broadcom","fullName":"Broadcom Inc.","symbol":"AVGO","weight":1.42},
+            {"rank":8,"name":"Roche Holding","fullName":"Roche Holding AG (Switzerland)","symbol":"ROG.SW","weight":1.1},
+            {"rank":9,"name":"Visa","fullName":"Visa Inc. (Class A)","symbol":"V","weight":1.05},
+            {"rank":10,"name":"Seagate","fullName":"Seagate Technology Holdings PLC","symbol":"STX","weight":1}
           ]
         },
         emerging: {
           title: 'ตราสารทุนตลาดเกิดใหม่ (Emerging Markets)',
-          badge: 'สัดส่วน 10 อันดับแรกคิดเป็น 23.34% ของพอร์ตหุ้นตลาดเกิดใหม่',
+          badge: 'ข้อมูล ณ 30 ก.ย. 2569',
           flag: '🌏',
           desc: '10 หุ้นยักษ์ใหญ่ในตลาดเกิดใหม่ เช่น ไต้หวัน เกาหลีใต้ จีน และฮ่องกง',
-          proNotes: [
-            '<b>Asian Foundry & Memory Giants:</b> หัวใจของพอร์ตตลาดเกิดใหม่นำโดย <b>TSMC (9.30%)</b> ผู้ผลิตชิปเบอร์ 1 ของโลก และ <b>SK hynix (5.97%)</b> ผู้นำหน่วยความจำ HBM สำหรับ AI รวมกันกว่า 15.27%',
-            '<b>China & Taiwan Tech Exposure:</b> ประกอบด้วย Tencent, Alibaba, MediaTek และ Delta TW เชื่อมโยงกับกำลังซื้อและห่วงโซ่อุปทานเทคโนโลยีเอเชีย',
-            '<b>High Beta Potential:</b> กลุ่มนี้มักมีความผันผวนสูงกว่าตลาดพัฒนาแล้ว แต่ให้ผลตอบแทนก้าวกระโดดในช่วงวัฏจักรการเติบโตของเซมิคอนดักเตอร์โลก'
-          ],
+          proNotes: ['สัดส่วนเทียบกับมูลค่าหุ้นในกลุ่มนี้ของกองทุนส่วนสมาชิก รวมการถือครองผ่านกองทุนรวมและ ETF แบบ Look Through'],
           items: [
-            { rank: 1, name: 'TSMC', fullName: 'Taiwan Semiconductor Manufacturing', symbol: 'TSM', weight: 9.30, defaultPrice: 172.50, defaultChange: 3.20, defaultPct: 1.89 },
-            { rank: 2, name: 'SK hynix', fullName: 'SK hynix Inc. (Korea)', symbol: '000660.KS', weight: 5.97, defaultPrice: 185200.0, defaultChange: 4200.0, defaultPct: 2.32 },
-            { rank: 3, name: 'MediaTek', fullName: 'MediaTek Inc. (Taiwan)', symbol: '2454.TW', weight: 1.48, defaultPrice: 1280.0, defaultChange: -15.0, defaultPct: -1.16 },
-            { rank: 4, name: 'Tencent', fullName: 'Tencent Holdings (Hong Kong)', symbol: '0700.HK', weight: 1.42, defaultPrice: 382.40, defaultChange: 4.60, defaultPct: 1.22 },
-            { rank: 5, name: 'China Construction Bank', fullName: 'China Construction Bank', symbol: '0939.HK', weight: 1.25, defaultPrice: 5.62, defaultChange: 0.04, defaultPct: 0.72 },
-            { rank: 6, name: 'Delta Electronics TW', fullName: 'Delta Electronics Inc. (TW)', symbol: '2308.TW', weight: 1.25, defaultPrice: 405.00, defaultChange: 3.50, defaultPct: 0.87 },
-            { rank: 7, name: 'SK Square', fullName: 'SK Square Co., Ltd. (Korea)', symbol: '402340.KS', weight: 0.76, defaultPrice: 84200.0, defaultChange: -600.0, defaultPct: -0.71 },
-            { rank: 8, name: 'Alibaba', fullName: 'Alibaba Group Holding (HK)', symbol: '9988.HK', weight: 0.70, defaultPrice: 84.50, defaultChange: 1.10, defaultPct: 1.32 },
-            { rank: 9, name: 'ICBC', fullName: 'Industrial and Commercial Bank of China', symbol: '1398.HK', weight: 0.62, defaultPrice: 4.58, defaultChange: 0.03, defaultPct: 0.66 },
-            { rank: 10, name: 'ASE Technology', fullName: 'ASE Technology Holding (TW)', symbol: '3711.TW', weight: 0.59, defaultPrice: 154.00, defaultChange: 1.50, defaultPct: 0.98 }
+            {"rank":1,"name":"TSMC","fullName":"Taiwan Semiconductor Manufacturing","symbol":"TSM","weight":10.22},
+            {"rank":2,"name":"SK hynix","fullName":"SK hynix Inc. (Korea)","symbol":"000660.KS","weight":4.29},
+            {"rank":3,"name":"MediaTek","fullName":"MediaTek Inc. (Taiwan)","symbol":"2454.TW","weight":1.85},
+            {"rank":4,"name":"China Construction Bank","fullName":"China Construction Bank","symbol":"0939.HK","weight":1.44},
+            {"rank":5,"name":"Tencent","fullName":"Tencent Holdings (Hong Kong)","symbol":"0700.HK","weight":1.36},
+            {"rank":6,"name":"ICBC","fullName":"Industrial and Commercial Bank of China","symbol":"1398.HK","weight":0.91},
+            {"rank":7,"name":"Alibaba","fullName":"Alibaba Group Holding (HK)","symbol":"9988.HK","weight":0.82},
+            {"rank":8,"name":"Lenovo","fullName":"Lenovo Group Ltd","symbol":"0992.HK","weight":0.71},
+            {"rank":9,"name":"SK Square","fullName":"SK Square Co., Ltd. (Korea)","symbol":"402340.KS","weight":0.71},
+            {"rank":10,"name":"Delta Electronics TW","fullName":"Delta Electronics Inc. (TW)","symbol":"2308.TW","weight":0.57}
           ]
         },
         reit: {
@@ -2994,6 +2982,7 @@
                 <div class="flex items-center gap-2">
                   <h4 class="text-sm font-bold text-slate-800">${catData.title}</h4>
                   <span class="text-[10px] font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">${catData.badge}</span>
+                  ${currentHoldingsCategory !== "reit" ? '<a href="https://www.gpf.or.th/thai2019/3Investment/main.php?page=8&amp;lang=th&amp;size=n&amp;pattern=n&amp;menu=partinvest" target="_blank" rel="noopener noreferrer">แหล่งข้อมูล กบข.</a>' : ""}
                 </div>
                 <p class="text-xs text-slate-500 mt-0.5">${catData.desc}</p>
               </div>
@@ -3031,7 +3020,9 @@
             const impactSign = impactVal >= 0 ? '+' : '';
             const impactCls = impactVal >= 0 ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-rose-700 bg-rose-50 border-rose-200';
 
-            let priceFmt = curPrice.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const hasQuote = Number.isFinite(curPrice);
+            const hasChange = Number.isFinite(diff) && Number.isFinite(pct);
+            let priceFmt = hasQuote ? curPrice.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "—";
             if (currentHoldingsCategory === 'developed' && !item.symbol.includes('.SW')) priceFmt = '$' + priceFmt;
             if (item.symbol.includes('.KS')) priceFmt = '₩' + Math.round(curPrice).toLocaleString();
             if (item.symbol.includes('.TW')) priceFmt = 'NT$' + priceFmt;
@@ -3049,18 +3040,18 @@
                 </td>
                 <td class="text-right font-bold text-slate-800 font-mono text-xs">${item.weight.toFixed(2)}%</td>
                 <td class="text-right">
-                  <div class="font-black text-slate-900 font-mono text-xs">${priceFmt}</div>
-                  <span class="inline-block mt-1 px-1.5 py-0.5 rounded border text-[9px] font-bold ${sourceClass}">${sourceLabel}</span>
+                  <div class="font-black text-slate-900 font-mono text-xs">${hasQuote ? priceFmt : "—"}</div>
+                  <span class="inline-block mt-1 px-1.5 py-0.5 rounded border text-[9px] font-bold ${sourceClass}">${hasQuote ? sourceLabel : "ยังไม่มีราคา"}</span>
                 </td>
                 <td class="text-right font-mono text-xs font-semibold ${isPos ? 'text-emerald-600' : 'text-rose-600'}">
-                  ${sign}${diff ? diff.toFixed(2) : '0.00'}
+                  ${hasChange ? sign + diff.toFixed(2) : "—"}
                 </td>
                 <td class="text-right font-mono text-xs">
-                  <span class="${cls} font-bold">${sign}${pct.toFixed(2)}%</span>
+                  <span class="${cls} font-bold">${hasChange ? sign + pct.toFixed(2) + "%" : "—"}</span>
                 </td>
                 <td class="text-right font-mono text-xs">
                   <span class="inline-block px-2 py-0.5 rounded-full border text-[11px] font-bold ${impactCls}">
-                    ${impactSign}${impactVal.toFixed(2)}%
+                    ${hasChange ? impactSign + impactVal.toFixed(2) + "%" : "—"}
                   </span>
                 </td>
               </tr>
@@ -3097,7 +3088,7 @@
         const labels = catData.items.map(i => i.name);
         const impacts = catData.items.map(i => {
           const pct = i.pct !== undefined ? i.pct : i.defaultPct;
-          return parseFloat(((i.weight * pct) / 100).toFixed(3));
+          return Number.isFinite(pct) ? parseFloat(((i.weight * pct) / 100).toFixed(3)) : null;
         });
         const colors = impacts.map(v => v >= 0 ? '#10b981' : '#f43f5e');
 
