@@ -948,6 +948,12 @@
                   🟡 เส้นทอง = NAV จริง | 🟣 เส้นม่วง = NAV คาดการณ์จากโมเดล
                 </div>
               </div>
+              <div class="mb-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs" aria-live="polite">
+                <strong>NAV คาดการณ์ล่าสุด</strong> <span id="goldForecastValue" class="font-bold text-purple-700">—</span>
+                <button type="button" class="ml-2 font-semibold text-amber-800" onclick="fetchGoldPrices()">รีเฟรชราคา</button>
+                <p id="goldForecastQuotes" class="mt-2">กำลังโหลดราคา GLD และ USD/THB</p>
+                <p id="goldForecastAccuracy" class="mt-2"></p>
+              </div>
               <div id="gold_chart_div" class="h-[320px] w-full"></div>
             </div>
 
@@ -3220,13 +3226,30 @@
           document.getElementById('subGoldTabModel').classList.remove('hidden');
           document.getElementById('btnGoldTabModel').className = "flex-1 py-2.5 px-3 rounded-xl text-xs font-bold text-amber-700 bg-amber-100/80 shadow-xs transition-all flex items-center justify-center gap-2";
           drawGoldDashboard();
+          if (goldDataRaw.length === 0) callBackend('getGoldData').then(processGoldData).catch(console.warn);
+          fetchGoldPrices();
         } else if (tab === 'info') {
           document.getElementById('subGoldTabInfo').classList.remove('hidden');
           document.getElementById('btnGoldTabInfo').className = "flex-1 py-2.5 px-3 rounded-xl text-xs font-bold text-amber-700 bg-amber-100/80 shadow-xs transition-all flex items-center justify-center gap-2";
         }
       }
 
-      async function fetchGoldPrices() {
+      let goldPriceRequest;
+      function fetchGoldPrices() {
+        if (!goldPriceRequest) {
+          goldPriceRequest = updateGoldPrices().finally(() => { goldPriceRequest = null; });
+        }
+        return goldPriceRequest;
+      }
+
+      setInterval(() => {
+        if (!document.hidden && !document.getElementById('page-gold').classList.contains('hidden') &&
+            !document.getElementById('subGoldTabModel').classList.contains('hidden')) {
+          fetchGoldPrices();
+        }
+      }, 60000);
+
+      async function updateGoldPrices() {
         let updatedList = JSON.parse(JSON.stringify(DEFAULT_GOLD_SYMBOLS));
 
         const symbols = updatedList.map(item => item.symbol);
@@ -3242,10 +3265,12 @@
 
         const promises = updatedList.map(async item => {
           const b = backendData ? (backendData[item.symbol] || (backendData.data && backendData.data[item.symbol])) : null;
-          if (b && (b.price !== undefined || b.livePrice !== undefined)) {
-            const b = backendData[item.symbol];
-            const curPrice = b.price || item.defaultPrice;
-            const prevClose = b.prevClose || curPrice;
+          const backendPrice = positiveGoldNumber(b?.price) ?? positiveGoldNumber(b?.livePrice);
+          if (backendPrice !== null) {
+            const curPrice = backendPrice;
+            const prevClose = positiveGoldNumber(b.prevClose) ?? curPrice;
+            item.hasQuote = true;
+            item.quoteTime = b.quoteTime;
             const diff = curPrice - prevClose;
             const pct = prevClose > 0 ? (diff / prevClose) * 100 : 0;
             item.price = curPrice;
@@ -3263,7 +3288,10 @@
               const json = await res.json();
               if (json.chart && json.chart.result && json.chart.result.length > 0) {
                 const meta = json.chart.result[0].meta;
-                const curPrice = meta.regularMarketPrice || item.defaultPrice;
+                const curPrice = positiveGoldNumber(meta.regularMarketPrice);
+                if (curPrice === null) throw new Error('Missing quote');
+                item.hasQuote = true;
+                if (meta.regularMarketTime > 0) item.quoteTime = meta.regularMarketTime * 1000;
                 const prevClose = meta.chartPreviousClose || meta.previousClose || curPrice;
                 const diff = curPrice - prevClose;
                 const pct = prevClose > 0 ? (diff / prevClose) * 100 : 0;
@@ -3283,6 +3311,7 @@
         });
 
         goldMarketData = await Promise.all(promises);
+        renderGoldForecast();
 
         const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         const timeEl = document.getElementById('gold_last_updated');
@@ -3516,13 +3545,9 @@
           await fetchGoldPrices();
           const dataGold = await callBackend('getGoldData');
           processGoldData(dataGold);
-          Swal.fire({
-            icon: 'success',
-            title: 'อัปเดตข้อมูลทองคำสำเร็จ',
-            text: 'ดึงราคาทองคำโลก XAU/USD, SPDR GLD และ USD/THB ล่าสุดเรียบร้อย',
-            timer: 1500,
-            showConfirmButton: false
-          });
+          if (!['GLD', 'USDTHB'].every(id => goldMarketData.some(item => item.id === id && item.hasQuote))) {
+            Swal.fire({ icon: 'info', title: 'ราคา GLD หรือ USD/THB ยังไม่พร้อม' });
+          }
         } catch (e) {
           console.error(e);
         } finally {
@@ -3533,14 +3558,81 @@
       function processGoldData(response) { 
         try { 
           if (!response || response.error || !response.data) return; 
-          goldDataRaw = response.data.filter(row => row[0] && String(row[0]).trim() !== ''); 
+          goldDataRaw = response.data.filter(row => Array.isArray(row) && row[0] &&
+            (positiveGoldNumber(row[3]) !== null || positiveGoldNumber(row[4]) !== null));
+          renderGoldForecast();
           if(!document.getElementById('page-gold').classList.contains('hidden')) {
             drawGoldDashboard();
           }
-          fetchGoldPrices();
-        } catch(e) { console.error(e); } 
+        } catch(e) { console.error(e); }
       }
-      
+
+      const GOLD_NAV_LOOKBACK = 20;
+
+      function positiveGoldNumber(value) {
+        const number = Number(value);
+        return Number.isFinite(number) && number > 0 ? number : null;
+      }
+
+      function goldNavFactor(rows) {
+        const factors = rows.map(row => row[3] / (row[1] * row[2])).sort((a, b) => a - b);
+        const middle = Math.floor(factors.length / 2);
+        return factors.length % 2 ? factors[middle] : (factors[middle - 1] + factors[middle]) / 2;
+      }
+
+      function goldNavHistory() {
+        return goldDataRaw.filter(row => [row[1], row[2], row[3]]
+          .every(value => positiveGoldNumber(value) !== null));
+      }
+
+      function goldNavBacktest(history) {
+        return new Map(history.slice(GOLD_NAV_LOOKBACK).map((row, index) => [
+          row, goldNavFactor(history.slice(index, index + GOLD_NAV_LOOKBACK)) * row[1] * row[2]
+        ]));
+      }
+
+      function renderGoldForecast() {
+        const history = goldNavHistory();
+        const gld = goldMarketData.find(item => item.id === 'GLD' && item.hasQuote);
+        const fx = goldMarketData.find(item => item.id === 'USDTHB' && item.hasQuote);
+        const forecast = history.length >= GOLD_NAV_LOOKBACK && gld && fx
+          ? goldNavFactor(history.slice(-GOLD_NAV_LOOKBACK)) * gld.price * fx.price : null;
+        document.getElementById('goldForecastValue').textContent = forecast === null
+          ? '—' : forecast.toFixed(4) + ' บาท/หน่วย';
+
+        function describeQuote(item, label, unit, decimals) {
+          if (!item) return label + ' ยังไม่มีราคา';
+          const time = new Date(item.quoteTime);
+          const stamp = item.quoteTime && Number.isFinite(time.getTime())
+            ? time.toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }) : 'ไม่ทราบเวลาราคา';
+          return label + ' ' + item.price.toFixed(decimals) + ' ' + unit + ' (' + stamp + ')';
+        }
+
+        const lastRow = history.at(-1);
+        const lastDate = new Date(lastRow?.[0]);
+        const historyDate = Number.isFinite(lastDate.getTime())
+          ? lastDate.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' })
+          : formatShortDate(lastRow?.[0]);
+        document.getElementById('goldForecastQuotes').textContent =
+          describeQuote(gld, 'GLD', 'USD', 2) + ' · ' + describeQuote(fx, 'USD/THB', 'บาท/USD', 4) +
+          (historyDate ? ' · ข้อมูล NAV ถึง ' + historyDate : '');
+
+        let modelError = 0;
+        let originalError = 0;
+        let count = 0;
+        goldNavBacktest(history).forEach((estimated, row) => {
+          const original = positiveGoldNumber(row[4]);
+          if (original === null) return;
+          modelError += Math.abs(estimated - row[3]);
+          originalError += Math.abs(original - row[3]);
+          count++;
+        });
+        document.getElementById('goldForecastAccuracy').textContent = count
+          ? 'ทดสอบย้อนหลัง ' + count + ' วัน ด้วยข้อมูล 20 วันก่อนหน้า · คลาดเคลื่อนเฉลี่ย ' +
+            (modelError / count).toFixed(4) + ' บาท/หน่วย (สูตรเดิม ' + (originalError / count).toFixed(4) + ')'
+          : 'ข้อมูลยังไม่พอสำหรับทดสอบย้อนหลัง';
+      }
+
       function drawGoldDashboard() {
         if(goldDataRaw.length === 0) return;
         const chartDiv = document.getElementById('gold_chart_div');
@@ -3552,11 +3644,15 @@
         dt.addColumn('number', 'NAV จริง');
         dt.addColumn('number', 'คาดการณ์ (SPDR Model)');
 
+        const estimates = goldNavBacktest(goldNavHistory());
+        const dateLabel = value => typeof value === 'string' && value.includes('T') && Number.isFinite(Date.parse(value))
+          ? new Date(value).toLocaleDateString('en-GB', { timeZone: 'Asia/Bangkok', day: '2-digit', month: '2-digit' })
+          : formatShortDate(value);
         goldDataRaw.forEach(row => {
-          var navReal = parseFloat(row[3]);
-          var navFore = parseFloat(row[4]);
-          if (!isNaN(navReal) || !isNaN(navFore)) {
-            dt.addRow([formatShortDate(row[0]), navReal, navFore]);
+          const navReal = positiveGoldNumber(row[3]);
+          const navFore = estimates.get(row) ?? null;
+          if (navReal !== null || navFore !== null) {
+            dt.addRow([dateLabel(row[0]), navReal, navFore]);
           }
         });
 
@@ -3578,9 +3674,11 @@
 
         var tableHtml = '<table><thead><tr><th>วันที่</th><th>NAV จริง</th><th>คาดการณ์ (SPDR)</th><th>ส่วนต่าง</th></tr></thead><tbody>';
         goldDataRaw.slice(-15).reverse().forEach(row => {
-          var diffVal = parseFloat(row[5]);
-          var diffClass = isNaN(diffVal) ? '' : (diffVal >= 0 ? 'positive' : 'negative');
-          tableHtml += `<tr><td style="text-align:left">${formatShortDate(row[0])}</td><td>${isNaN(parseFloat(row[3]))?'-':parseFloat(row[3]).toFixed(2)}</td><td style="color:#7c3aed">${isNaN(parseFloat(row[4]))?'-':parseFloat(row[4]).toFixed(2)}</td><td><span class="${diffClass}">${isNaN(diffVal)?'-':(diffVal>0?'+':'')+diffVal.toFixed(2)}</span></td></tr>`;
+          const navReal = positiveGoldNumber(row[3]);
+          const navFore = estimates.get(row);
+          const diff = navReal !== null && navFore !== undefined ? navReal - navFore : null;
+          const diffClass = diff === null ? '' : (diff >= 0 ? 'positive' : 'negative');
+          tableHtml += `<tr><td style="text-align:left">${dateLabel(row[0])}</td><td>${navReal?.toFixed(2) ?? '—'}</td><td style="color:#7c3aed">${navFore?.toFixed(2) ?? '—'}</td><td><span class="${diffClass}">${diff === null ? '—' : (diff > 0 ? '+' : '') + diff.toFixed(2)}</span></td></tr>`;
         });
         const tableDiv = document.getElementById('gold_table_div');
         if (tableDiv) tableDiv.innerHTML = tableHtml + '</tbody></table>';
